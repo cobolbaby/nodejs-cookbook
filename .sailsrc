@@ -1,0 +1,6 @@
+{
+    "hooks": {
+        // 禁用session
+        "session": false
+    }
+}
