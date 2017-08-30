@@ -25,7 +25,8 @@
     "rc": "1.0.1",
     "request": "^2.81.0",
     "sails": "~0.12.13",
-    "sails-disk": "~0.10.9"
+    "sails-disk": "~0.10.9",
+    "vue": "^2.4.2"
   },
   "scripts": {
     "debug": "node debug app.js",
