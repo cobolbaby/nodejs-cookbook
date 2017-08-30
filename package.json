@@ -20,6 +20,8 @@
     "handlebars": "^4.0.10",
     "include-all": "^1.0.0",
     "passport": "^0.4.0",
+    "passport-oauth2": "^1.4.0",
+    "passport-wechat-enterprise": "^0.2.0",
     "rc": "1.0.1",
     "request": "^2.81.0",
     "sails": "~0.12.13",

@@ -38,7 +38,13 @@ module.exports.routes = {
 
   'get /'       : 'HomeController.index',
   'get /debug'  : 'HomeController.debug',
-  'get /ip'     : 'HomeController.getIp'
+  'get /ip'     : 'HomeController.getIp',
+  
+  /**
+   * 
+   */
+  'get /auth/:provider': 'AuthController.provider',
+  'get /auth/:provider/callback': 'AuthController.callback',
 
   /***************************************************************************
   *                                                                          *
