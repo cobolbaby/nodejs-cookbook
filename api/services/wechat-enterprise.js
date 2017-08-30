@@ -29,7 +29,7 @@ module.exports = {
      * 
      */
     getAccessToken: function(cb) {
-        const weixinent_opts = sails.config.passport['weixinent'].options;
+        const weixinent_opts = sails.config.passport['wechat-enterprise'].options;
         let   AccessToken    = require('passport-wechat-enterprise').AccessToken;
 
         var url = util.format("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=%s&corpsecret=%s",

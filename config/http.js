@@ -11,6 +11,20 @@
 
 module.exports.http = {
 
+	/****************************************************************************
+	 *                                                                           *
+	 * Example custom middleware; logs each request to the console.              *
+	 *                                                                           *
+	 ****************************************************************************/
+
+	customRequestLogger : function(req, res, next) {
+		console.log("Requested :: ", req.method, req.url);
+		return next();
+	},
+
+	passportInit    : require('passport').initialize(),
+	passportSession : require('passport').session(),
+
     /****************************************************************************
      *                                                                           *
      * Express middleware to use for every Sails request. To add custom          *
@@ -48,22 +62,7 @@ module.exports.http = {
             'favicon',
             '404',
             '500'
-        ],
-
-        /****************************************************************************
-         *                                                                           *
-         * Example custom middleware; logs each request to the console.              *
-         *                                                                           *
-         ****************************************************************************/
-
-        customRequestLogger : function(req, res, next) {
-            console.log("Requested :: ", req.method, req.url);
-            return next();
-        }
-
-        passportInit    : require('passport').initialize(),
-        passportSession : require('passport').session(),
-
+        ]
 
         /***************************************************************************
          *                                                                          *

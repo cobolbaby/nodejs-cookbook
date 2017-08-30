@@ -37,7 +37,10 @@ module.exports = {
     },
 
     index: function (req, res) {
-        // return res.serverError('abc');
+        if (!req.isAuthenticated()) {
+            return res.redirect('/auth/wechat-enterprise');
+        }
+        res.view('homepage');
     }
 };
 
