@@ -38,6 +38,7 @@ module.exports = {
         passport.callback(req, res, function(err, user, challenges, statuses) {
             if (err || !user) {
                 sails.log.error('Fail to pass the authorization');
+                sails.log.error(err);
                 return res.serverError();
             }
 
