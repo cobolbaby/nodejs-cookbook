@@ -28,7 +28,6 @@ module.exports.passport = {
         options: {
             corpId: 'wxab37d42f0324866f',
             corpSecret: 'rbzinXxmIZI1pmIOMmwEuHHQvBue7Q8BzVlxORVGvIw',
-            state: 'state',
             scope: "snsapi_base",
 
             // extra callback functions defined in service/wechat.js

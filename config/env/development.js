@@ -21,6 +21,6 @@ module.exports = {
 	//   connection: 'someMongodbServer'
 	// }
 
-	appUrl: 'http://weixinmpdev.shujuguan.cn'
+	appUrl: 'http://weixinmpdev.shujuguan.cn:1337'
 
 };

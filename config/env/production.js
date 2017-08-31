@@ -22,12 +22,6 @@ module.exports = {
     // },
 
     /***************************************************************************
-     * Set the port in the production environment to 80                        *
-     ***************************************************************************/
-
-    // port: 80,
-
-    /***************************************************************************
      * Set the log level in production environment to "silent"                 *
      ***************************************************************************/
 
@@ -35,6 +29,12 @@ module.exports = {
         level: "warn"
     },
 
-    appUrl: 'http://weixinmpdev.shujuguan.cn'
+    // [fix]sails.getBaseUrl() is deprecated and will be removed in Sails v1.0
+    appUrl: 'http://weixinmpdev.shujuguan.cn:1337',
 
+    /***************************************************************************
+     * Set the port in the production environment to 80                        *
+     ***************************************************************************/
+
+    // port: 1337
 };
