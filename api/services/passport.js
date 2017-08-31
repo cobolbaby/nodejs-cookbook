@@ -56,7 +56,7 @@ passport.loadStrategies = function() {
 
     Object.keys(strategies).forEach(function(key) {
         var options = {
-                passReqToCallback : true
+                passReqToCallback: true
             },
             Strategy;
 
@@ -153,5 +153,14 @@ passport.callback = function(req, res, next) {
     // has failed.
     this.authenticate(provider, {}, next)(req, res, req.next);
 };
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+// 疑问所在
+passport.deserializeUser(function(id, done) {
+    done(null, {id : id});
+});
 
 module.exports = passport;

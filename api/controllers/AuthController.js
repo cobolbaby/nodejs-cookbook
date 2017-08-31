@@ -42,10 +42,17 @@ module.exports = {
             }
 
             sails.log.debug(user);
+            /*
+            { 
+                UserId: 'zhangxinglong@gbase.cn',
+                DeviceId: '0c2b2cc8e2093ec4ee7e9fde0509b480',
+            }
+            */
             
             req.login(user, function(err) {
                 if (err) {
                     sails.log.error('Fail to record user info to session');
+                    sails.log.error(err);
                     return res.serverError();
                 }
 
