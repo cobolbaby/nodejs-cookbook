@@ -55,7 +55,9 @@ passport.loadStrategies = function() {
         strategies = sails.config.passport;
 
     Object.keys(strategies).forEach(function(key) {
-        var options = {},
+        var options = {
+                passReqToCallback : true
+            },
             Strategy;
 
         if (key === 'bearer') {
@@ -75,7 +77,7 @@ passport.loadStrategies = function() {
             let baseUrl = sails.getBaseurl();
 
             switch (protocol) {
-                case 'oauth2':
+                // case 'oauth2':
                 case 'wechat-enterprise':
                     options.callbackURL = url.resolve(baseUrl, callback);
                     options.requireState = false;
@@ -148,7 +150,7 @@ passport.callback = function(req, res, next) {
     // the authentication process by attempting to obtain an access token. If
     // access was granted, the user will be logged in. Otherwise, authentication
     // has failed.
-    this.authenticate(provider, next)(req, res, req.next);
+    this.authenticate(provider, {}, next)(req, res, req.next);
 };
 
 module.exports = passport;

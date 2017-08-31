@@ -2,9 +2,6 @@
  * wechat enterprise utility function
  */
 
-var request = require('request'),
-    util    = require('util');
-
 module.exports = {
 
 
@@ -29,31 +26,14 @@ module.exports = {
      * 
      */
     getAccessToken: function(cb) {
-        const weixinent_opts = sails.config.passport['wechat-enterprise'].options;
-        let   AccessToken    = require('passport-wechat-enterprise').AccessToken;
-
-        var url = util.format("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=%s&corpsecret=%s",
-            weixinent_opts.corpId, weixinent_opts.corpSecret);
-
-        request({
-            method: 'GET',
-            url: url,
-            json: true
-        }, function(error, response, data) {
-            if (error) {
-                cb(error);
-            } else if (data.errcode) {
-                cb(data);
-            } else {
-                cb(null, new AccessToken(data.access_token, data.expires_in, Date.now()));
-            }
-        });
+        // ...
+        cb(null, null)
     },
 
     /**
      * 将之前请求到的accessToken保存下来供后续调用使用.
      */
     saveAccessToken: function(accessToken) {
-        sails.log.debug("saveAccessToken() not implemented yet...");
+
     }
 };

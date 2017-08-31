@@ -12,6 +12,5 @@
  * can contain any combination of tokens issued by the authentication API.
  */
 module.exports = {
-    oauth2: require('./oauth2'),
     'wechat-enterprise': require('./wechat-enterprise')
 };

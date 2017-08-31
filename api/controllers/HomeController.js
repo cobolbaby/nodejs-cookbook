@@ -17,6 +17,9 @@ module.exports = {
     * `HomeController.debug()`
     */
     debug: function (req, res) {
+
+        return res.serverError();
+
         // fun1();
         console.log('export the json string');
         res.json({
@@ -37,9 +40,6 @@ module.exports = {
     },
 
     index: function (req, res) {
-        if (!req.isAuthenticated()) {
-            return res.redirect('/auth/wechat-enterprise');
-        }
         res.view('homepage');
     }
 };

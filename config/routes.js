@@ -41,7 +41,7 @@ module.exports.routes = {
   'get /ip'     : 'HomeController.getIp',
   
   /**
-   * 
+   * 3rd passport
    */
   'get /auth/:provider': 'AuthController.provider',
   'get /auth/:provider/callback': 'AuthController.callback',

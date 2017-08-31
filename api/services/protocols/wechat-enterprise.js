@@ -12,15 +12,12 @@ OAuth2返回后的verify回调函数
 @param done callback function
  */
 
-module.exports = function(req, profile, next) {
-    var query = {
-        identifier: profile.UserId,
-        protocol: 'wechat',
-        tokens: {}
-    };
+module.exports = function(req, profile, verified) {
+    
+    // 二次校验profile...
 
-    // wechat does not have username or email filed needed by passport.connect()
-    profile.username = profile.username || profile.UserId;
+    // 改写profile
 
-    passport.connect(req, query, profile, next);
+    verified(null, profile);
+
 };

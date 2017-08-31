@@ -37,19 +37,18 @@ module.exports = {
 
         passport.callback(req, res, function(err, user, challenges, statuses) {
             if (err || !user) {
-                // ...
+                sails.log.error('Fail to pass the authorization');
+                return res.serverError();
             }
             req.login(user, function(err) {
                 if (err) {
-                    // ...
+                    sails.log.error('Fail to record user info to session');
+                    return res.serverError();
                 }
-
-                // Mark the session as authenticated to work with default Sails sessionAuth.js policy
-                req.session.authenticated = true
 
                 // Upon successful login, send the user to the homepage were req.user
                 // will be available.
-                res.redirect('/');
+                return res.redirect('/');
             });
         });
     }

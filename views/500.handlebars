@@ -54,16 +54,16 @@
         <h2>
           Something isn't right here.
         </h2>
-        <% if (typeof data !== 'undefined') { %>
+        {{#if data }}
         <pre class="error"><code>
-          <%- data %>
+        {{data}}
         </code></pre>
-        <% } else { %>
-       <p class="error">
+        {{else}}
+        <p class="error">
           A team of highly trained sea bass is working on this as we speak.<br/>
           If the problem persists, please <a href="mailto://you@your-domain.com">contact the system administrator</a> and inform them of the time that the error occured, and anything you might have done that may have caused the error.
         </p>
-      <% } %>
+        {{/if}}
 
       </div>
 
