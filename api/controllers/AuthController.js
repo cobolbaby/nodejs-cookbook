@@ -40,6 +40,9 @@ module.exports = {
                 sails.log.error('Fail to pass the authorization');
                 return res.serverError();
             }
+
+            sails.log.debug(user);
+            
             req.login(user, function(err) {
                 if (err) {
                     sails.log.error('Fail to record user info to session');

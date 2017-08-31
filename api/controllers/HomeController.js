@@ -18,7 +18,7 @@ module.exports = {
     */
     debug: function (req, res) {
 
-        return res.serverError();
+        // return res.serverError();
 
         // fun1();
         console.log('export the json string');
