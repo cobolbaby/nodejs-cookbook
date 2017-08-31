@@ -80,8 +80,6 @@ bower_components
 ################################################
 .tmp
 dump.rdb
-Gruntfile.js
-tasks
 
 
 
