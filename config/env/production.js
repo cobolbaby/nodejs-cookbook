@@ -33,6 +33,8 @@ module.exports = {
 
     log: {
         level: "warn"
-    }
+    },
+
+    appUrl: 'http://weixinmpdev.shujuguan.cn'
 
 };

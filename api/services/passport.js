@@ -74,7 +74,7 @@ passport.loadStrategies = function() {
             if (!callback) {
                 callback = 'auth/' + key + '/callback';
             }
-            let baseUrl = sails.getBaseurl();
+            let baseUrl = sails.config.appUrl;
 
             switch (protocol) {
                 // case 'oauth2':
