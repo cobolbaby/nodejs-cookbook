@@ -32,11 +32,11 @@ module.exports.passport = {
 
             // extra callback functions defined in service/wechat.js
             getAccessToken: function(cb) {
-                wechat-enterprise.getAccessToken(cb)
+                WechatEnterprise.getAccessToken(cb)
             },
 
             saveAccessToken: function(accessToken, cb) {
-                wechat-enterprise.saveAccessToken(accessToken, cb);
+                WechatEnterprise.saveAccessToken(accessToken, cb);
             }
         }
     }

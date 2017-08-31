@@ -139,7 +139,8 @@ passport.endpoint = function(req, res) {
  */
 passport.callback = function(req, res, next) {
 
-    let provider = req.param('provider');
+    let strategies = sails.config.passport,
+        provider = req.param('provider');
 
     // If a provider doesn't exist for this endpoint
     if (!strategies.hasOwnProperty(provider)) {
