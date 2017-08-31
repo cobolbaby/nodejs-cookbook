@@ -33,7 +33,7 @@ module.exports = {
     appUrl: 'http://weixinmpdev.shujuguan.cn:1337',
 
     /***************************************************************************
- * Set the port in the production environment to 80                        *
+     * Set the port in the production environment to 80                        *
      ***************************************************************************/
 
     // port: 1337
