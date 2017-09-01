@@ -64,7 +64,7 @@ module.exports = {
 
         return true;
 
-        getAccessToken(function(err, resp) {
+        /*getAccessToken(function(err, resp) {
             if (err) {
                 sails.log.error(err);
                 return false;
@@ -75,14 +75,6 @@ module.exports = {
                     sails.log.error(err);
                     return false;
                 }
-                /*
-                    "userlist": [
-                                    {
-                                        "userid": "zhangsan",
-                                        "name": "李四"
-                                    }
-                                ],
-                */
                 _.each(resp.userlist, function(user) {
                     if (user.userid === username) {
                         return true;
@@ -90,7 +82,7 @@ module.exports = {
                 });
                 return false;
             })
-        })
+        });*/
 
 
     }

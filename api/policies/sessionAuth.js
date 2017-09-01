@@ -13,7 +13,7 @@ module.exports = function(req, res, next) {
     // (default res.forbidden() behavior can be overridden in `config/403.js`)
     // return res.forbidden('You are not permitted to perform this action.');
     // if (!req.isAuthenticated()) {
-    if (_.isUndefined(req.session) || _.isUndefined(req.session.passport) || _.isUndefined(req.session.passport.user)) {
+    if (_.isUndefined(req.session.passport) || _.isUndefined(req.session.passport.user)) {
         return res.redirect('/auth/wechat-enterprise');
     }
 

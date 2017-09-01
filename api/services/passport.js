@@ -155,12 +155,12 @@ passport.callback = function(req, res, next) {
 };
 
 passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    // done(null, user.id);
 });
 
 // 疑问所在
 passport.deserializeUser(function(id, done) {
-    User.findOne(id, done);
+    // User.findOne(id, done);
 });
 
 module.exports = passport;

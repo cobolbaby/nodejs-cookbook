@@ -56,6 +56,7 @@ module.exports = {
                 // will be available.
                 return res.redirect('/');
             });*/
+            req.session.passport = {};
             req.session.passport.user = { 
                                     UserId: 'zhangxinglong@gbase.cn',
                                     DeviceId: '0c2b2cc8e2093ec4ee7e9fde0509b480',
