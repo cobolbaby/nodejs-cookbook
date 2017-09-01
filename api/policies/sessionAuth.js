@@ -9,15 +9,15 @@
  */
 module.exports = function(req, res, next) {
 
-    // User is allowed, proceed to the next policy, 
-    // or if this is the last policy, the controller
-    // if (req.isAuthenticated()) {
-    if (req.session.passport.user) {
-        return next();
-    }
-    
     // User is not allowed
     // (default res.forbidden() behavior can be overridden in `config/403.js`)
     // return res.forbidden('You are not permitted to perform this action.');
-    return res.redirect('/auth/wechat-enterprise');
+    // if (!req.isAuthenticated()) {
+    if (_.isUndefined(req.session) || _.isUndefined(req.session.passport) || _.isUndefined(req.session.passport.user)) {
+        return res.redirect('/auth/wechat-enterprise');
+    }
+
+    // User is allowed, proceed to the next policy, 
+    // or if this is the last policy, the controller
+    return next();
 };

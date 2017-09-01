@@ -23,7 +23,7 @@ module.exports = function(req, profile, verified) {
 
     // 二次校验profile...
     // 判断是否有某权限
-    if (!Acl.check()) {
+    if (!Acl.check(profile.UserId)) {
         verified(null, null, {'errmsg':''});
     }
 
