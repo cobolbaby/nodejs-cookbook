@@ -39,7 +39,8 @@ module.exports = {
             if (err || !user) {
                 sails.log.error('Fail to pass the authorization');
                 sails.log.error(err);
-                return res.serverError();
+                res.serverError();
+                return ;
             }
 
             sails.log.debug(user);
@@ -54,7 +55,8 @@ module.exports = {
                 if (err) {
                     sails.log.error('Fail to record user info to session');
                     sails.log.error(err);
-                    return res.serverError();
+                    res.serverError();
+                    return ;
                 }
 
                 // Upon successful login, send the user to the homepage were req.user
