@@ -36,13 +36,6 @@ module.exports = {
     callback: function(req, res) {
 
         passport.callback(req, res, function(err, user, challenges, statuses) {
-            if (err || !user) {
-                sails.log.error('Fail to pass the authorization');
-                sails.log.error(err);
-                res.serverError();
-                return ;
-            }
-
             sails.log.debug(user);
             /*
             { 
@@ -50,13 +43,17 @@ module.exports = {
                 DeviceId: '0c2b2cc8e2093ec4ee7e9fde0509b480',
             }
             */
+            if (err) {
+                sails.log.error('Fail to pass the authorization');
+                sails.log.error(err);
+                return res.serverError(err);
+            }
             
             req.login(user, function(err) {
                 if (err) {
                     sails.log.error('Fail to record user info to session');
                     sails.log.error(err);
-                    res.serverError();
-                    return ;
+                    return res.serverError(err);
                 }
 
                 // Upon successful login, send the user to the homepage were req.user
