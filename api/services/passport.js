@@ -155,12 +155,12 @@ passport.callback = function(req, res, next) {
 };
 
 passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    done(null, JSON.stringify(user));
 });
 
 // 疑问所在
-passport.deserializeUser(function(id, done) {
-    done(null, {id : id});
+passport.deserializeUser(function(user, done) {
+    done(null, JSON.parse(user));
 });
 
 module.exports = passport;

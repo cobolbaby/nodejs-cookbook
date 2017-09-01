@@ -28,7 +28,7 @@ module.exports = function(req, profile, verified) {
     }
 
     // 改写profile
-    let user = _.pick(object, ['UserId', 'DeviceId', 'id']);
+    let user = _.pick(profile, ['UserId', 'DeviceId', 'id']);
 
     verified(null, user);
 
