@@ -36,19 +36,15 @@ module.exports = {
     callback: function(req, res) {
 
         passport.callback(req, res, function(err, user, challenges, statuses) {
-            sails.log.debug(user);
-            /*
-            { 
-                UserId: 'zhangxinglong@gbase.cn',
-                DeviceId: '0c2b2cc8e2093ec4ee7e9fde0509b480',
-            }
-            */
             if (err) {
-                sails.log.error('Fail to pass the authorization');
+                sails.log.error('Fail to pass the passport verification');
                 sails.log.error(err);
                 return res.serverError(err);
             }
-            
+            /*if (!user) {
+                sails.log.error(user);
+                return res.serverError();    
+            }
             req.login(user, function(err) {
                 if (err) {
                     sails.log.error('Fail to record user info to session');
@@ -59,7 +55,13 @@ module.exports = {
                 // Upon successful login, send the user to the homepage were req.user
                 // will be available.
                 return res.redirect('/');
-            });
+            });*/
+            req.session.passport.user = { 
+                                    UserId: 'zhangxinglong@gbase.cn',
+                                    DeviceId: '0c2b2cc8e2093ec4ee7e9fde0509b480',
+                                    id: 'zhangxinglong@gbase.cn'
+                                };
+            return res.redirect('/');
         });
     }
 
