@@ -154,13 +154,12 @@ passport.callback = function(req, res, next) {
     this.authenticate(provider, {}, next)(req, res, req.next);
 };
 
-passport.serializeUser(function(user, done) {
-    // done(null, user.id);
+passport.serializeUser(function(user, next) {
+    next(null, JSON.stringify(user));
 });
 
-// 疑问所在
-passport.deserializeUser(function(id, done) {
-    // User.findOne(id, done);
+passport.deserializeUser(function(serializedUser, next) {
+    next(null, JSON.parse(serializedUser));
 });
 
 module.exports = passport;
