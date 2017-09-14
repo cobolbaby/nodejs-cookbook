@@ -41,10 +41,17 @@ module.exports = {
                 sails.log.error(err);
                 return res.serverError(err);
             }
-            /*if (!user) {
+            if (!user) {
                 sails.log.error(user);
                 return res.serverError();    
             }
+            /*
+            {
+                UserId: 'zhangxinglong@gbase.cn',
+                DeviceId: '0c2b2cc8e2093ec4ee7e9fde0509b480',
+                id: 'zhangxinglong@gbase.cn'
+            }
+            */
             req.login(user, function(err) {
                 if (err) {
                     sails.log.error('Fail to record user info to session');
@@ -54,15 +61,9 @@ module.exports = {
 
                 // Upon successful login, send the user to the homepage were req.user
                 // will be available.
+                req.session.authenticated　=　true;
                 return res.redirect('/');
-            });*/
-            req.session.passport = {};
-            req.session.passport.user = { 
-                                    UserId: 'zhangxinglong@gbase.cn',
-                                    DeviceId: '0c2b2cc8e2093ec4ee7e9fde0509b480',
-                                    id: 'zhangxinglong@gbase.cn'
-                                };
-            return res.redirect('/');
+            });
         });
     }
 
