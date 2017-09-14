@@ -41,6 +41,28 @@ module.exports = {
 
     index: function (req, res) {
         res.view('homepage');
+    },
+
+    httptest: function (req, res) {
+
+    /*
+    { 
+        UserId: 'zhangxinglong@gbase.cn',
+        DeviceId: '0c2b2cc8e2093ec4ee7e9fde0509b480',
+        errcode: 0,
+        errmsg: 'ok',
+        id: 'zhangxinglong@gbase.cn'
+    }
+    */
+        let user = { 
+            UserId: 'zhangxinglong@gbase.cn',
+            DeviceId: '0c2b2cc8e2093ec4ee7e9fde0509b480',
+            errcode: 0,
+            errmsg: 'ok',
+            id: 'zhangxinglong@gbase.cn'
+        };
+
+        Acl.check(user.UserId);
     }
 };
 

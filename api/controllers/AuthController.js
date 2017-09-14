@@ -61,7 +61,7 @@ module.exports = {
 
                 // Upon successful login, send the user to the homepage were req.user
                 // will be available.
-                req.session.authenticated　=　true;
+                // req.session.authenticated　=　true;
                 return res.redirect('/');
             });
         });

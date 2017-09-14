@@ -22,12 +22,12 @@ var request = require('request');
 function getUserTag(access_token, tagid, cb) {
 
     let _getUserTagUrl = 'https://qyapi.weixin.qq.com/cgi-bin/tag/get?access_token=%s&tagid=%d';
-    let url = util.format(_userGetUrl, access_token, tagid);
+    let url = util.format(_getUserTagUrl, access_token, tagid);
     request(url, function(error, response, body) {
         if (error) {
             return cb(error);
         }
-        if (body.errcode) {
+        if (body.errcode) { // exception handler
             return cb(body);    
         }
         return cb(null, body);
@@ -51,7 +51,7 @@ function getAccessToken(cb) {
         if (error) {
             cb(error);
         }
-        if (body.errcode) {
+        if (body.errcode) { // exception handler
             return cb(body);    
         }
         return cb(null, body);
@@ -62,27 +62,45 @@ module.exports = {
 
     check: function(username) {
 
-        return true;
+        // return true;
 
-        /*getAccessToken(function(err, resp) {
+        /*async.waterfall([  
+            function (callback) {
+                getAccessToken(callback);
+            },  
+            function (arg1, arg2, callback) {
+                getUserTag(arg1, arg2, callback);  
+            }
+        ], function (err, result) {
+            console.log(result);  
+            // result now equals 'done'  
+            // console.log('4');  
+        }); */ 
+        
+        getAccessToken(function(err, response) {
             if (err) {
                 sails.log.error(err);
                 return false;
             }
+            sails.log.debug(response);
             const tagid = 1;
-            getWeixinContract(resp.access_token, tagid, function(err, resp) {
+            let token = JSON.parse(response);
+            getUserTag(token.access_token, tagid, function(err, res) {
                 if (err) {
                     sails.log.error(err);
                     return false;
                 }
-                _.each(resp.userlist, function(user) {
+
+                // exception handler
+
+                _.each(res.userlist, function(user) {
                     if (user.userid === username) {
                         return true;
                     }
                 });
                 return false;
             })
-        });*/
+        });
 
 
     }
