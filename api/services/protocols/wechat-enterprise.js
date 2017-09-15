@@ -28,7 +28,6 @@ module.exports = function(req, profile, verified) {
         }
         // 改写profile
         let user = _.pick(profile, ['UserId', 'DeviceId', 'id']);
-        sails.log.debug(user);
         return verified(null, user);
     });
 
