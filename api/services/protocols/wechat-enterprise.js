@@ -8,6 +8,7 @@ OAuth2返回后的verify回调函数
 
 module.exports = function(req, profile, verified) {
     
+
     /*
     { 
         UserId: 'zhangxinglong@gbase.cn',
@@ -22,13 +23,15 @@ module.exports = function(req, profile, verified) {
         return verified(profile.errmsg);
     }
 
-    Acl.check(profile, function(isCheck) {
-        if (!isCheck) {
-            return verified(null, null, {'errmsg':'xxxx'});
-        }
-        // 改写profile
-        let user = _.pick(profile, ['UserId', 'DeviceId', 'id']);
-        return verified(null, user);
-    });
+    return verified(null, user);
+
+    // Acl.check(profile, function(isCheck) {
+    //     if (!isCheck) {
+    //         return verified(null, null, {'errmsg':'xxxx'});
+    //     }
+    //     // 改写profile
+    //     let user = _.pick(profile, ['UserId', 'DeviceId', 'id']);
+    //     return verified(null, user);
+    // });
 
 };

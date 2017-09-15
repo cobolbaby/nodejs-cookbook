@@ -66,7 +66,7 @@ module.exports = {
 
     check: function(uinfo, cb) {
 
-        // cb(true);
+        // return cb(true);
 
         getAccessToken(function(err, res) {
             if (err) {

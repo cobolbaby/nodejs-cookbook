@@ -38,13 +38,12 @@ module.exports = {
         passport.callback(req, res, function(err, user, info) {
             if (err) {
                 sails.log.error('Fail to pass the passport verification:' + err);
-                return res.send('Fail to pass the passport verification');
+                return res.forbidden('Fail to pass the passport verification');
             }
-            sails.log.info('authoricate user:');
-            sails.log.info(user);
+            sails.log.info('authoricate user:', user);
             if (!user) {
                 sails.log.error('invalid user');
-                return res.send('invalid user');
+                return res.forbidden('invalid user');
             }
             /*
             {
@@ -55,8 +54,8 @@ module.exports = {
             */
             req.login(user, function(err) {
                 if (err) {
-                    sails.log.error('req.login err:' + err);
-                    return res.send('req.login err');
+                    sails.log.error('req.login err:', err);
+                    return res.forbidden('req.login err');
                 }
 
                 // Upon successful login, send the user to the homepage were req.user
