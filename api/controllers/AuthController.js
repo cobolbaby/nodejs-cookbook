@@ -35,7 +35,7 @@ module.exports = {
      */
     callback: function(req, res) {
 
-        passport.callback(req, res, function(err, user, challenges, statuses) {
+        passport.callback(req, res, function(err, user, messages) {
             if (err) {
                 sails.log.error('Fail to pass the passport verification');
                 sails.log.error(err);

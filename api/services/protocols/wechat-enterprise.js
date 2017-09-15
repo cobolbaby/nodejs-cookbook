@@ -17,13 +17,15 @@ module.exports = function(req, profile, verified) {
         id: 'zhangxinglong@gbase.cn'
     }
     */
+    sails.log.debug(profile);
     if (profile.errcode) { // 400
         return verified(profile.errmsg);
     }
 
-    Acl.check(profile, function(isCheck){
+    Acl.check(profile, function(isCheck) {
+        sails.log.debug(isCheck);
         if (!isCheck) {
-            return verified(null, null, {'errmsg':''});
+            return verified(null, null, {'errmsg':'xxxx'});
         }
         // 改写profile
         let user = _.pick(profile, ['UserId', 'DeviceId', 'id']);
