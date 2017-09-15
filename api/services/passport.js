@@ -124,7 +124,7 @@ passport.endpoint = function(req, res) {
     // Redirect the user to the provider for authentication. When complete,
     // the provider will redirect the user back to the application at
     //     /auth/:provider/callback
-    this.authenticate(provider, options)(req, res, req.next);
+    this.authenticate(provider, options)(req, res, null);
 };
 
 /**
@@ -137,7 +137,7 @@ passport.endpoint = function(req, res) {
  * @param {Object}   res
  * @param {Function} next
  */
-passport.callback = function(req, res, next) {
+passport.callback = function(req, res, cb) {
 
     let strategies = sails.config.passport,
         provider = req.param('provider');
@@ -151,7 +151,7 @@ passport.callback = function(req, res, next) {
     // the authentication process by attempting to obtain an access token. If
     // access was granted, the user will be logged in. Otherwise, authentication
     // has failed.
-    this.authenticate(provider, {}, next)(req, res, req.next);
+    this.authenticate(provider, {}, cb)(req, res, null);
 };
 
 passport.serializeUser(function(user, next) {

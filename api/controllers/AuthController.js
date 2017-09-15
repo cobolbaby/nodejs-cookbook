@@ -40,7 +40,8 @@ module.exports = {
                 sails.log.error('Fail to pass the passport verification:' + err);
                 return res.send('Fail to pass the passport verification');
             }
-            sails.log.info('authoricate user:' + user);
+            sails.log.info('authoricate user:');
+            sails.log.info(user);
             if (!user) {
                 sails.log.error('invalid user');
                 return res.send('invalid user');
@@ -61,6 +62,7 @@ module.exports = {
                 // Upon successful login, send the user to the homepage were req.user
                 // will be available.
                 // req.session.authenticated　=　true;
+                sails.log.info('success to authoricate');
                 return res.redirect('/');
             });
         });
