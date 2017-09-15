@@ -23,7 +23,6 @@ module.exports = function(req, profile, verified) {
     }
 
     Acl.check(profile, function(isCheck) {
-        sails.log.debug(isCheck);
         if (!isCheck) {
             return verified(null, null, {'errmsg':'xxxx'});
         }

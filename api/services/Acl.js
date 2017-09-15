@@ -31,6 +31,7 @@ function getUserTag(access_token, tagid, cb) {
         if (res.errcode) { // exception handler
             return cb(res.errmsg);    
         }
+        sails.log.debug(body);
         return cb(null, body);
     });
 }
@@ -56,6 +57,7 @@ function getAccessToken(cb) {
         if (res.errcode) { // exception handler
             return cb(res.errmsg);    
         }
+        sails.log.debug(body);
         return cb(null, body);
     });
 }
@@ -71,7 +73,6 @@ module.exports = {
                 sails.log.error(err);
                 return cb(false);
             }
-            sails.log.debug(res);
             const tagid = 1; // audit tag
             let token = JSON.parse(res);
             return getUserTag(token.access_token, tagid, function(err, res) {
@@ -79,8 +80,8 @@ module.exports = {
                     sails.log.error(err);
                     return cb(false);
                 }
-                sails.log.debug(res);
                 let taginfo = JSON.parse(res);
+                sails.log.debug(taginfo);
                 _.each(taginfo.userlist, function(user) {
                     if (user.userid === uinfo.UserId) {
                         return cb(true);
