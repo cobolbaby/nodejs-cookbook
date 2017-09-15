@@ -18,18 +18,16 @@ module.exports = function(req, profile, verified) {
     }
     */
     if (profile.errcode) { // 400
-        verified(profile);
+        return verified(profile.errmsg);
     }
 
-    // 二次校验profile...
-    // 判断是否有某权限
-    if (!Acl.check(profile.UserId)) {
-        verified(null, null, {'errmsg':''});
-    }
-
-    // 改写profile
-    let user = _.pick(profile, ['UserId', 'DeviceId', 'id']);
-
-    verified(null, user);
+    Acl.check(profile, function(isCheck){
+        if (!isCheck) {
+            return verified(null, null, {'errmsg':''});
+        }
+        // 改写profile
+        let user = _.pick(profile, ['UserId', 'DeviceId', 'id']);
+        return verified(null, user);
+    });
 
 };

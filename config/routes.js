@@ -39,7 +39,7 @@ module.exports.routes = {
   'get /'       : 'HomeController.index',
   'get /debug'  : 'HomeController.debug',
   'get /ip'     : 'HomeController.getIp',
-  'get /httptest': 'HomeController.httptest',
+  'get /acl'    : 'HomeController.testAcl',
   
   
   /**

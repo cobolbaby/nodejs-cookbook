@@ -43,7 +43,7 @@ module.exports = {
         res.view('homepage');
     },
 
-    httptest: function (req, res) {
+    testAcl: function (req, res) {
 
     /*
     { 
@@ -62,7 +62,13 @@ module.exports = {
             id: 'zhangxinglong@gbase.cn'
         };
 
-        Acl.check(user.UserId);
+        Acl.check(user, function(isCheck){
+            if (isCheck) {
+                return res.ok('get permission');
+            } else {
+                return res.forbidden();
+            }
+        });
     }
 };
 

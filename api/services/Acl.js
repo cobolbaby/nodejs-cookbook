@@ -27,8 +27,9 @@ function getUserTag(access_token, tagid, cb) {
         if (error) {
             return cb(error);
         }
-        if (body.errcode) { // exception handler
-            return cb(body);    
+        let res = JSON.parse(body);
+        if (res.errcode) { // exception handler
+            return cb(res.errmsg);    
         }
         return cb(null, body);
     });
@@ -49,10 +50,11 @@ function getAccessToken(cb) {
     let url = util.format(_getAccessTokenUrl, options.corpId, options.corpSecret);
     request(url, function(error, response, body) {
         if (error) {
-            cb(error);
+            return cb(error);
         }
-        if (body.errcode) { // exception handler
-            return cb(body);    
+        let res = JSON.parse(body);
+        if (res.errcode) { // exception handler
+            return cb(res.errmsg);    
         }
         return cb(null, body);
     });
@@ -60,49 +62,33 @@ function getAccessToken(cb) {
 
 module.exports = {
 
-    check: function(username) {
+    check: function(uinfo, cb) {
 
-        // return true;
+        // cb(true);
 
-        /*async.waterfall([  
-            function (callback) {
-                getAccessToken(callback);
-            },  
-            function (arg1, arg2, callback) {
-                getUserTag(arg1, arg2, callback);  
-            }
-        ], function (err, result) {
-            console.log(result);  
-            // result now equals 'done'  
-            // console.log('4');  
-        }); */ 
-        
-        getAccessToken(function(err, response) {
+        getAccessToken(function(err, res) {
             if (err) {
                 sails.log.error(err);
-                return false;
+                return cb(false);
             }
-            sails.log.debug(response);
-            const tagid = 1;
-            let token = JSON.parse(response);
-            getUserTag(token.access_token, tagid, function(err, res) {
+            sails.log.debug(res);
+            const tagid = 1; // audit tag
+            let token = JSON.parse(res);
+            return getUserTag(token.access_token, tagid, function(err, res) {
                 if (err) {
                     sails.log.error(err);
-                    return false;
+                    return cb(false);
                 }
-
-                // exception handler
-
-                _.each(res.userlist, function(user) {
-                    if (user.userid === username) {
-                        return true;
+                sails.log.debug(res);
+                let taginfo = JSON.parse(res);
+                _.each(taginfo.userlist, function(user) {
+                    if (user.userid === uinfo.UserId) {
+                        return cb(true);
                     }
                 });
-                return false;
-            })
+                return cb(false);
+            });
         });
-
-
     }
 
 };
