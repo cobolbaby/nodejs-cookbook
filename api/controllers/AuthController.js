@@ -40,7 +40,7 @@ module.exports = {
                 sails.log.error('Fail to pass the passport verification:' + err);
                 return res.send('Fail to pass the passport verification');
             }
-            sails.log.info(user);
+            sails.log.info('authoricate user:' + user);
             if (!user) {
                 sails.log.error('invalid user');
                 return res.send('invalid user');
