@@ -18,12 +18,12 @@ module.exports = function(req, profile, verified) {
         id: 'zhangxinglong@gbase.cn'
     }
     */
-    sails.log.debug(profile);
+    sails.log.debug("[protocol] wechat-enterprise:", profile);
     if (profile.errcode) { // 400
         return verified(profile.errmsg);
     }
 
-    return verified(null, user);
+    return verified(null, profile);
 
     // Acl.check(profile, function(isCheck) {
     //     if (!isCheck) {
