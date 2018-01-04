@@ -36,5 +36,5 @@ module.exports = {
      * Set the port in the production environment to 80                        *
      ***************************************************************************/
 
-    // port: 1337
+    port: 1080
 };

@@ -21,14 +21,16 @@ module.exports = {
     */
     debug: function (req, res) {
 
-        /*console.log('export the json string');
-        res.json({
-          todo: 'debug() is not implemented yet!'
-        });
+        /*
         console.log('perform subsequent tasks');
         setTimeout(function(){
             console.log('subsequent tasks is finished');
-        } ,5000);*/
+        } ,5000);
+        console.log('export the json string');
+        res.json({
+          todo: 'debug() is not implemented yet!'
+        });
+        */
 
         let arr = [
             {
@@ -187,6 +189,7 @@ module.exports = {
         if (!req.isAuthenticated()) {
             return res.redirect('/auth/wechat-enterprise');
         }
+        sails.log.debug('sessionID is:' + req.sessionID);
         res.view('homepage');
     },
 

@@ -17,5 +17,8 @@ module.exports.bootstrap = function(cb) {
   // sails.hooks.http.app.set('trust proxy', true); // 无效果
   sails.services.passport.loadStrategies();
 
+  // config schedule task
+  sails.services.Cronjob.launch();
+
   cb();
 };
