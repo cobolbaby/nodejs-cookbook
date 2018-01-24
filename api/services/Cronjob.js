@@ -10,16 +10,16 @@ var schedule = require('node-schedule');
 /**
  * 定时任务启动
  */
-export function launch() {
+function launch () {
     // 设置定时器
     // 配置定时任务
-
-}
+    console.log('do the schedule job');
+};
 
 /**
  * 定时任务运行
  */
-export function run() {
+function run() {
     // 获取定时任务
 
     // 执行计划任务
@@ -46,3 +46,7 @@ function _recordLog() {
 function _pushMessage() {
     // 最好能做到多渠道分发
 }
+
+module.exports = {
+    launchprogress: launch
+};
