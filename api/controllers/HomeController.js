@@ -178,14 +178,6 @@ module.exports = {
         return res.json(arrSort(arr));
     },
 
-    /**
-     * TODO::change ipv6 => ipv4
-     */
-    getIp: function (req, res) {
-        // return is important
-        return res.send(req.ip);
-    },
-
     index: function (req, res) {
         // 验证SessionID
         // sails.log.debug('sessionID is:' + req.sessionID);
