@@ -5,6 +5,8 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "assert": "^1.4.1",
+    "geoip-lite": "^1.2.1",
     "grunt": "1.0.1",
     "grunt-contrib-clean": "1.0.0",
     "grunt-contrib-coffee": "1.0.0",
@@ -24,6 +26,7 @@
     "passport-oauth2": "^1.4.0",
     "passport-wechat-enterprise": "^0.2.0",
     "rc": "1.0.1",
+    "redis": "^2.8.0",
     "request": "^2.81.0",
     "sails": "~0.12.13",
     "sails-disk": "~0.10.9",

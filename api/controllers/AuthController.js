@@ -65,6 +65,35 @@ module.exports = {
                 return res.redirect('/');
             });
         });
-    }
+    },
+
+    testAcl: function (req, res) {
+
+        /*
+        { 
+            UserId: 'zhangxinglong@gbase.cn',
+            DeviceId: '0c2b2cc8e2093ec4ee7e9fde0509b480',
+            errcode: 0,
+            errmsg: 'ok',
+            id: 'zhangxinglong@gbase.cn'
+        }
+        */
+        let user = { 
+            UserId: 'zhangxinglong@gbase.cn',
+            DeviceId: '0c2b2cc8e2093ec4ee7e9fde0509b480',
+            errcode: 0,
+            errmsg: 'ok',
+            id: 'zhangxinglong@gbase.cn'
+        };
+
+        Acl.check(user, function(isCheck){
+            if (isCheck) {
+                return res.ok('get permission');
+            } else {
+                return res.forbidden();
+            }
+        });
+    },
+    
 
 };

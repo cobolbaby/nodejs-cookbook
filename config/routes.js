@@ -37,10 +37,9 @@ module.exports.routes = {
 
   "get /": "HomeController.index",
   "get /debug": "HomeController.debug",
-  "get /ip": "TestController.getIp",
-  "get /address": "TestController.getAddress",
-  "get /acl": "HomeController.testAcl",
-  "get /showerr": "TestController.showErr",
+  "get /ip": "GeoIPController.getIp",
+  "get /address": "GeoIPController.getAddress",
+  "get /acl": "AuthController.testAcl",
 
   /**
    * 3rd passport

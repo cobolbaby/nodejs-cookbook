@@ -1,4 +1,4 @@
-import * as geoip from "geoip-lite";
+const geoip = require('geoip-lite');
 
 module.exports = {
   getAddress: function(req, res) {
@@ -14,17 +14,6 @@ module.exports = {
 
     
     return res.send(geoip.lookup(ips[0]));
-  },
-
-  showErr: function(req, res) {
-    let err = {
-      code: 500,
-      message: JSON.stringify({
-        field1: "abc"
-      })
-    };
-
-    return res.json(err.code, JSON.parse(err.message));
   },
 
   /**
