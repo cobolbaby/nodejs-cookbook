@@ -175,7 +175,13 @@ module.exports = {
                 "consume_desc": null
             }
         ];
-        return res.json(arrSort(arr));
+        // return res.json(arrSort(arr));
+        return request.get({
+                    url: 'https://api.some-server.com/',
+                    agentOptions: {
+                        ca: fs.readFileSync('ca.cert.pem')
+                    }
+                });
     },
 
     index: function (req, res) {
