@@ -42,8 +42,8 @@ module.exports = {
             }
             sails.log.info('authoricate user:', user);
             if (!user) {
-                sails.log.error('invalid user');
-                return res.forbidden('invalid user');
+                sails.log.error(info);
+                return res.forbidden(info);
             }
             /*
             {

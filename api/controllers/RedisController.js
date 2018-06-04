@@ -11,7 +11,7 @@ const redisClient = redis.createClient({
 });
 
 redisClient.on("error", function (err) {
-    sails.log.error("Error " + err);
+    sails.log.error(err);
 });
 
 let clientN = 0;
