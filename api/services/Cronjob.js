@@ -15,6 +15,7 @@ function launch () {
     // 配置定时任务
     console.log('do the schedule job');
 };
+exports.launchprogress = launch;
 
 /**
  * 定时任务运行
@@ -46,7 +47,3 @@ function _recordLog() {
 function _pushMessage() {
     // 最好能做到多渠道分发
 }
-
-module.exports = {
-    launchprogress: launch
-};

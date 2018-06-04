@@ -9,16 +9,16 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.bootstrap.html
  */
 
-module.exports.bootstrap = function(cb) {
+module.exports.bootstrap = function (cb) {
 
-  // It's very important to trigger this callback method when you are finished
-  // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
+	// It's very important to trigger this callback method when you are finished
+	// with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
 
-  // sails.hooks.http.app.set('trust proxy', true); // 无效果
-  // sails.services.passport.loadStrategies();
+	// sails.hooks.http.app.set('trust proxy', true); // 无效果
+	// sails.services.passport.loadStrategies();
 
-  // config schedule task
-  // sails.services.Cronjob.launchprogress();
+	// config schedule task
+	sails.services.cronjob.launchprogress();
 
-  cb();
+	cb();
 };

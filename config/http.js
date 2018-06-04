@@ -64,6 +64,8 @@ module.exports.http = {
          ***************************************************************************/
 
         order: [
+            'favicon',
+            'www',
             'startRequestTimer',
             'cookieParser',
             'session',
@@ -71,14 +73,9 @@ module.exports.http = {
             'passportInit',
             'passportSession',
             'bodyParser',
-            'handleBodyParserError',
             'compress',
-            // 'methodOverride',
-            'poweredBy',
             // '$custom',
             'router',
-            'www',
-            'favicon',
             '404',
             '500'
         ]
