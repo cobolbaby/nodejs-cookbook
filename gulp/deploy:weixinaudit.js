@@ -23,9 +23,10 @@ module.exports = function() {
         let secret = require('../secret.json');
         let cmdstr = [
             'rsync',
+            `-e "ssh -p ${secret.port}"`,
             '--archive --compress --verbose',
             '--exclude=.* --exclude=gulp --exclude=node_modules --exclude=gulpfile.js',
-            '.', ['rsync://', secret.username, '@', secret.host, ':', secret.targetDir].join('')
+            '.', [secret.username, '@', secret.host, ':', secret.targetDir].join(''),
         ].join(' ');
 
         child_process.exec(cmdstr, function(err, stdout, stderr) {

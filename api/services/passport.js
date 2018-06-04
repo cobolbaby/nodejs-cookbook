@@ -1,5 +1,5 @@
-var url = require('url'),
-    passport = require('passport');
+const url = require('url'),
+	passport = require('passport');
 
 /**
  * Passport Service
@@ -50,50 +50,50 @@ passport.protocols = require('./protocols');
  * http://passportjs.org/guide/providers/
  *
  */
-passport.loadStrategies = function() {
-    var self = this,
-        strategies = sails.config.passport;
+passport.loadStrategies = function () {
+	var self = this,
+		strategies = sails.config.passport;
 
-    Object.keys(strategies).forEach(function(key) {
-        var options = {
-                passReqToCallback: true
-            },
-            Strategy;
+	Object.keys(strategies).forEach(function (key) {
+		var options = {
+				passReqToCallback: true
+			},
+			Strategy;
 
-        if (key === 'bearer') {
+		if (key === 'bearer') {
 
-            if (strategies.bearer) {
-                Strategy = strategies[key].strategy;
-                self.use(new Strategy(self.protocols.bearer.authorize));
-            }
+			if (strategies.bearer) {
+				Strategy = strategies[key].strategy;
+				self.use(new Strategy(self.protocols.bearer.authorize));
+			}
 
-        } else {
-            let protocol = strategies[key].protocol,
-                callback = strategies[key].options.callback;
+		} else {
+			let protocol = strategies[key].protocol,
+				callback = strategies[key].options.callback;
 
-            if (!callback) {
-                callback = 'auth/' + key + '/callback';
-            }
-            let baseUrl = sails.config.appUrl;
+			if (!callback) {
+				callback = 'auth/' + key + '/callback';
+			}
+			let baseUrl = sails.config.appUrl;
 
-            switch (protocol) {
-                // case 'oauth2':
-                case 'wechat-enterprise':
-                    options.callbackURL = url.resolve(baseUrl, callback);
-                    options.requireState = false;
-                    break;
-            }
+			switch (protocol) {
+				// case 'oauth2':
+				case 'wechat-enterprise':
+					options.callbackURL = url.resolve(baseUrl, callback);
+					options.requireState = false;
+					break;
+			}
 
-            // Merge the default options with any options defined in the config. All
-            // defaults can be overriden, but I don't see a reason why you'd want to
-            // do that.
-            _.extend(options, strategies[key].options);
+			// Merge the default options with any options defined in the config. All
+			// defaults can be overriden, but I don't see a reason why you'd want to
+			// do that.
+			_.extend(options, strategies[key].options);
 
-            Strategy = strategies[key].strategy;
+			Strategy = strategies[key].strategy;
 
-            self.use(new Strategy(options, self.protocols[protocol]));
-        }
-    });
+			self.use(new Strategy(options, self.protocols[protocol]));
+		}
+	});
 };
 
 /**
@@ -105,26 +105,26 @@ passport.loadStrategies = function() {
  * @param  {Object} req
  * @param  {Object} res
  */
-passport.endpoint = function(req, res) {
+passport.endpoint = function (req, res) {
 
-    let strategies = sails.config.passport,
-        provider = req.param('provider'),
-        options = {};
+	let strategies = sails.config.passport,
+		provider = req.param('provider'),
+		options = {};
 
-    // If a provider doesn't exist for this endpoint
-    if (!strategies.hasOwnProperty(provider)) {
-        return res.end('NOT SUPPORT ' + provider.toUpperCase());
-    }
+	// If a provider doesn't exist for this endpoint
+	if (!strategies.hasOwnProperty(provider)) {
+		return res.end('NOT SUPPORT ' + provider.toUpperCase());
+	}
 
-    // Attach scope if it has been set in the config
-    if (strategies[provider].hasOwnProperty('scope')) {
-        options.scope = strategies[provider].scope;
-    }
+	// Attach scope if it has been set in the config
+	if (strategies[provider].hasOwnProperty('scope')) {
+		options.scope = strategies[provider].scope;
+	}
 
-    // Redirect the user to the provider for authentication. When complete,
-    // the provider will redirect the user back to the application at
-    //     /auth/:provider/callback
-    this.authenticate(provider, options)(req, res, null);
+	// Redirect the user to the provider for authentication. When complete,
+	// the provider will redirect the user back to the application at
+	//     /auth/:provider/callback
+	this.authenticate(provider, options)(req, res, null);
 };
 
 /**
@@ -137,29 +137,29 @@ passport.endpoint = function(req, res) {
  * @param {Object}   res
  * @param {Function} next
  */
-passport.callback = function(req, res, cb) {
+passport.callback = function (req, res, cb) {
 
-    let strategies = sails.config.passport,
-        provider = req.param('provider');
+	let strategies = sails.config.passport,
+		provider = req.param('provider');
 
-    // If a provider doesn't exist for this endpoint
-    if (!strategies.hasOwnProperty(provider)) {
-        return res.end('NOT SUPPORT ' + provider.toUpperCase());
-    }
+	// If a provider doesn't exist for this endpoint
+	if (!strategies.hasOwnProperty(provider)) {
+		return res.end('NOT SUPPORT ' + provider.toUpperCase());
+	}
 
-    // The provider will redirect the user to this URL after approval. Finish
-    // the authentication process by attempting to obtain an access token. If
-    // access was granted, the user will be logged in. Otherwise, authentication
-    // has failed.
-    this.authenticate(provider, {}, cb)(req, res, null);
+	// The provider will redirect the user to this URL after approval. Finish
+	// the authentication process by attempting to obtain an access token. If
+	// access was granted, the user will be logged in. Otherwise, authentication
+	// has failed.
+	this.authenticate(provider, {}, cb)(req, res, null);
 };
 
-passport.serializeUser(function(user, next) {
-    next(null, JSON.stringify(user));
+passport.serializeUser(function (user, next) {
+	next(null, JSON.stringify(user));
 });
 
-passport.deserializeUser(function(serializedUser, next) {
-    next(null, JSON.parse(serializedUser));
+passport.deserializeUser(function (serializedUser, next) {
+	next(null, JSON.parse(serializedUser));
 });
 
 module.exports = passport;

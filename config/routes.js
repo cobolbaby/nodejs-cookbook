@@ -37,9 +37,10 @@ module.exports.routes = {
 
   "get /": "HomeController.index",
   "get /debug": "HomeController.debug",
-  "get /ip": "GeoIPController.getIp",
-  "get /address": "GeoIPController.getAddress",
-  "get /acl": "AuthController.testAcl",
+  "get /api/location/ip": "GeoIPController.getIp",
+  "get /api/location/address": "GeoIPController.getAddress",
+  "get /api/user/acl": "AuthController.testAcl",
+  'get /api/qrcode/:id': 'QrcodeController.createQrcode',
 
   /**
    * 3rd passport

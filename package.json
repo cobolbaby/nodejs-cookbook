@@ -25,6 +25,7 @@
     "passport": "^0.4.0",
     "passport-oauth2": "^1.4.0",
     "passport-wechat-enterprise": "^0.2.0",
+    "qrcode": "^1.2.0",
     "rc": "1.0.1",
     "redis": "^2.8.0",
     "request": "^2.81.0",
