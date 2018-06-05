@@ -46,7 +46,12 @@ module.exports.routes = {
    * 3rd passport
    */
   "get /auth/:provider": "AuthController.provider",
-  "get /auth/:provider/callback": "AuthController.callback"
+  "get /auth/:provider/callback": "AuthController.callback",
+
+  // SSO
+  'get /api/sso/saml2/login': 'SSOController.ssoRedirect',
+  'post /api/sso/saml2/acs/:id': 'SSOController.ssoCallback', // POST
+  'get /api/sso/saml2/logout': 'SSOController.ssoLogout',
 
   /***************************************************************************
    *                                                                          *
