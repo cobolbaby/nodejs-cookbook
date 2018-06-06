@@ -49,9 +49,9 @@ module.exports.routes = {
   "get /auth/:provider/callback": "AuthController.callback",
 
   // SSO
-  'get /api/sso/saml2/login': 'SSOController.ssoRedirect',
-  'post /api/sso/saml2/acs/:id': 'SSOController.ssoCallback', // POST
-  'get /api/sso/saml2/logout': 'SSOController.ssoLogout',
+  'get /login': 'SSOController.ssoRedirect',
+  '/api/sso/saml2/:id/acs': 'SSOController.ssoCallback', // POST/GET
+  'get /logout': 'SSOController.ssoLogout',
 
   /***************************************************************************
    *                                                                          *
