@@ -14,7 +14,7 @@ module.exports = function(req, res, next) {
     // return res.forbidden('You are not permitted to perform this action.');
     // if (!req.session.authenticated) {
     if (!req.isAuthenticated()) {
-        return res.redirect('/api/sso/saml2/login');
+        return res.redirect('/login');
     }
 
     // User is allowed, proceed to the next policy, 

@@ -125,7 +125,7 @@ function ssoCallback(req, res) {
 }
 
 function ssoLogout(req, res) {
-	// strategy是否需要重新加载
+	// TODO::Strategy是否需要重新加载
 	var samlStrategy = passport._strategy('samldemo1');
 
 	samlStrategy.logout(req, function (err, requestUrl) {
