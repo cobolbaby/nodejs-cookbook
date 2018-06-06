@@ -40,7 +40,7 @@ test/*/dist
 ################################################
 
 config/local.js
-
+secret.json
 
 
 
