@@ -18,7 +18,7 @@ module.exports = function() {
     });
     */
 
-    gulp.task('deploy:weixinaudit', function(cb) { // 异步任务支持
+    gulp.task('deploy', function(cb) { // 异步任务支持
 
         let secret = require('../secret.json');
         let cmdstr = [

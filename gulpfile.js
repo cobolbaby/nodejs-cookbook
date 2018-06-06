@@ -14,7 +14,7 @@ fs.readdirSync(taskPath).filter(function(file) {
 // main task entries
 //======================================================================
 gulp.task('default', [
-    'deploy:weixinaudit',
+    'deploy',
 ], function() {
     console.log("gulp default done and exit.");
 });

@@ -54,7 +54,7 @@ module.exports.routes = {
   'get /logout': 'SSOController.ssoLogout',
 
   // Proxy HTTP
-  '*': 'ProxyController.transfor',
+  '*': 'ProxyController.proxy',
 
 
   /***************************************************************************

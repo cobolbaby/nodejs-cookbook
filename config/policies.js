@@ -49,7 +49,8 @@ module.exports.policies = {
     // feed : ['isNiceToAnimals', 'hasRabbitFood']
     // }
 
-    'HomeController': {
-        'index': ['sessionAuth']
+    'SSOController': {
+        'ssoRedirect': ['sessionAuth'],
+        'ssoLogout': ['sessionAuth'],
     },
 };
