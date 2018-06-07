@@ -50,7 +50,6 @@ module.exports.policies = {
     // }
 
     'SSOController': {
-        'ssoRedirect': ['sessionAuth'],
         'ssoLogout': ['sessionAuth'],
     },
 };
