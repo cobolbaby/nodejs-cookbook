@@ -5,9 +5,6 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-var passport = require('passport');
-var static_resource_conf = sails.config.staticResource; // 深拷贝还是浅拷贝
-
 function arrSort (arr) {
     arr.sort(function(x, y){
         return new Date(x['trxn_date']) * 1 - new Date(y['trxn_date']) * 1;
@@ -187,12 +184,6 @@ module.exports = {
     index: function (req, res) {
         // 验证SessionID
         // sails.log.debug('sessionID is:' + req.sessionID);
-        
-        sails.log.debug('static_resource_conf domain is:' + static_resource_conf.domain); // 用于验证全局变量是否被篡改了
-        static_resource_conf.domain = "http://cobolbaby.com";
-        sails.log.debug("static_resource_conf domain is:" + static_resource_conf.domain);
-        sails.log.debug('sails.config.staticResource is:' + sails.config.staticResource.domain); // 用于验证是否为深拷贝还是欠拷贝
-
         res.view('homepage');
     },
 

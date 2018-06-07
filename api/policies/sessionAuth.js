@@ -14,7 +14,7 @@ module.exports = function(req, res, next) {
     // return res.forbidden('You are not permitted to perform this action.');
     // if (!req.session.authenticated) {
     if (!req.isAuthenticated()) {
-        return res.redirect('/login');
+        return res.redirect(sails.config.entry.login);
     }
 
     // User is allowed, proceed to the next policy, 

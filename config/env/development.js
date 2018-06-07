@@ -22,8 +22,9 @@ module.exports = {
 
 	appUrl: "http://weixinmpdev.shujuguan.cn:1337",
 
-	staticResource: {
-		domain: 'http://oss.aliyun.com/',
-		path: "/static"
+	entry: {
+		home: '/',
+		login: '/login',
+		resource: 'http://oss.aliyun.com/'
 	}
 };

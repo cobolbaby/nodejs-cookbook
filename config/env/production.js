@@ -32,10 +32,10 @@ module.exports = {
     // [fix]sails.getBaseUrl() is deprecated and will be removed in Sails v1.0
     appUrl: 'http://weixinmpdev.shujuguan.cn:1337',
 
-	staticResource: {
-		domain: 'http://oss.aliyun.com/',
-		path: "/static"
-	},
+	entry: {
+        login: '/login',
+        resource: 'http://oss.aliyun.com/'
+    }
 
     /***************************************************************************
      * Set the port in the production environment to 80                        *

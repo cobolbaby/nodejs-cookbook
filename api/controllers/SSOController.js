@@ -48,7 +48,7 @@ function ssoRedirect(req, res) {
 	const opts = {
 		callbackUrl: 'http://cobol.chart2.com:1337/api/sso/saml2/demo1/acs',
 		entryPoint: 'https://cobolbaby-dev.onelogin.com/trust/saml2/http-post/sso/796983',
-		issuer: 'passport-saml',
+		issuer: 'https://app.onelogin.com/saml/metadata/796983',
 		cert: `-----BEGIN CERTIFICATE-----
         MIIEHTCCAwWgAwIBAgIUEPGXZz5ErndhS42mvxwy4zsfGAcwDQYJKoZIhvcNAQEF
         BQAwWjELMAkGA1UEBhMCVVMxEjAQBgNVBAoMCWNvYm9sYmFieTEVMBMGA1UECwwM
@@ -74,7 +74,7 @@ function ssoRedirect(req, res) {
         o0CCK33HzIeVVTYNeIkupdNGcPn8ofoS2aOIcHMaDvGShd47wf8OiFv0tgvwtAIG
         7g==`,
 		logoutUrl: 'https://cobolbaby-dev.onelogin.com/trust/saml2/http-redirect/slo/796983',
-		logoutCallback: 'http://cobol.chart2.com:1337/logout',
+		logoutCallback: 'http://cobol.chart2.com:1337/logout/callback',
 		name: 'samldemo1',
 	};
 
@@ -116,29 +116,39 @@ function ssoCallback(req, res) {
          */
 
 		// 如果存在则使用
+		// req.session.authenticated = true;
 		req.login(user, (err) => {
 			if (err) {
 				return res.forbidden(err);
 			}
 			return res.redirect('/');
-		})
+		});
 	})(req, res, req.next);
 }
 
-function ssoLogout(req, res) {
+function LogoutRedirect(req, res) {
 	// TODO::Strategy是否需要重新加载
 	var samlStrategy = passport._strategy('samldemo1');
 
 	samlStrategy.logout(req, function (err, requestUrl) {
 		// LOCAL logout
 		req.logout();
+		// delete req.session.authenticated;
 		// redirect to the IdP with the encrypted SAML logout request
 		return res.redirect(requestUrl);
 	});
 }
 
+function LogoutCallback(req, res) {
+	// LOCAL logout
+	req.logout();
+	// delete req.session.authenticated;
+	return res.redirect(sails.config.entry.login);
+}
+
 module.exports = {
 	ssoRedirect,
 	ssoCallback,
-	ssoLogout
+	LogoutRedirect,
+	// LogoutCallback
 };
