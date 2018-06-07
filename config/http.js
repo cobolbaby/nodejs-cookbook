@@ -9,6 +9,9 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.http.html
  */
 
+const Raven = require('raven');
+Raven.config('__DSN__').install();
+
 module.exports.http = {
 
     /****************************************************************************
@@ -37,6 +40,10 @@ module.exports.http = {
         passportInit: require('passport').initialize(),
         passportSession: require('passport').session(),
 
+        // Raven's handlers has to be added as a keys to http.middleware config object
+        requestHandler: Raven.requestHandler(),
+        errorHandler: Raven.errorHandler(),
+
         /***************************************************************************
          *                                                                          *
          * The body parser that will handle incoming multipart HTTP requests. By    *
@@ -64,18 +71,22 @@ module.exports.http = {
          ***************************************************************************/
 
         order: [
+            // The request handler must be the very first one
+            'requestHandler',
             'favicon',
+            'customRequestLogger',
             'www',
             'startRequestTimer',
             'cookieParser',
             'session',
-            'customRequestLogger',
             'passportInit',
             'passportSession',
             'bodyParser',
             'compress',
             // '$custom',
             'router',
+            // The error handler must be after router, but before any other error middleware
+            'errorHandler',
             '404',
             '500'
         ]

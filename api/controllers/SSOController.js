@@ -74,7 +74,7 @@ function ssoRedirect(req, res) {
         o0CCK33HzIeVVTYNeIkupdNGcPn8ofoS2aOIcHMaDvGShd47wf8OiFv0tgvwtAIG
         7g==`,
 		logoutUrl: 'https://cobolbaby-dev.onelogin.com/trust/saml2/http-redirect/slo/796983',
-		logoutCallback: 'http://cobol.chart2.com:1337/logout/callback',
+		// logoutCallback: 'http://cobol.chart2.com:1337/logout/callback',
 		name: 'samldemo1',
 	};
 

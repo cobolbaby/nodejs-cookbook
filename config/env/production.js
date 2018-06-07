@@ -35,7 +35,7 @@ module.exports = {
 	entry: {
         login: '/login',
         resource: 'http://oss.aliyun.com/'
-    }
+    },
 
     /***************************************************************************
      * Set the port in the production environment to 80                        *
