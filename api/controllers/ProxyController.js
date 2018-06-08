@@ -8,12 +8,25 @@
 const request = require('request');
 
 function proxy (req, res) {
-    sails.log.debug(req.headers);
-    let url = 'https://www.baidu.com/' + req.url;
-    return req.pipe(request(url)).pipe(res);
+    let opts = {
+		method      : req.method,
+		url         : req.url,
+		headers     : req.headers
+	};
+    return req.pipe(request(opts)).on('error', function(err) {
+        if (err) {
+            sails.log.error(`[${req.url}]`, err);
+        }
+	}).pipe(res);
+}
+
+function test (req, res) {
+    const r = request.defaults({'proxy': sails.config.proxyServer});
+    r.get('https://www.google.com/search?q=shujuguan').pipe(res);
 }
 
 module.exports = {
-    proxy
+    proxy,
+    test
 };
 

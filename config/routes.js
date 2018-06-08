@@ -55,6 +55,7 @@ module.exports.routes = {
   // 'get /logout/callback': 'SSOController.LogoutCallback', // 跳过该环节也可实现退出
 
   // Proxy HTTP
+  '/proxy/test': 'ProxyController.test',
   '*': 'ProxyController.proxy',
 
 

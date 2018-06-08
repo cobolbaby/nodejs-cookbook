@@ -10,7 +10,8 @@
  */
 
 const Raven = require('raven');
-Raven.config('__DSN__').install();
+const ENV = require('./env/development');
+Raven.config(ENV.sentryio.dsn).install();
 
 module.exports.http = {
 

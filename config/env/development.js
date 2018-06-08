@@ -20,11 +20,17 @@ module.exports = {
 	//   connection: 'someMongodbServer'
 	// }
 
-	appUrl: "http://weixinmpdev.shujuguan.cn:1337",
+	appUrl: "http://localhost:1337",
 
 	entry: {
 		home: '/',
 		login: '/login',
 		resource: 'http://oss.aliyun.com/'
+	},
+
+	proxyServer: 'http://45.76.206.97:1337',
+
+	sentryio: {
+		dsn: 'https://30a7efe55976451c8afd8e645232fe36@sentry.io/1222009'
 	}
 };

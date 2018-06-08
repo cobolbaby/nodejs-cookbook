@@ -30,7 +30,7 @@ module.exports = {
     },
 
     // [fix]sails.getBaseUrl() is deprecated and will be removed in Sails v1.0
-    appUrl: 'http://weixinmpdev.shujuguan.cn:1337',
+    appUrl: 'http://localhost:1337',
 
 	entry: {
         login: '/login',
