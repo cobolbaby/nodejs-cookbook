@@ -32,5 +32,9 @@ module.exports = {
 
 	sentryio: {
 		dsn: 'https://30a7efe55976451c8afd8e645232fe36@sentry.io/1222009'
+	},
+
+	services: {
+		USER_SERVICE_URI: 'http://cobol.chart2.com:8090'
 	}
 };

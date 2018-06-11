@@ -5,92 +5,56 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-
-/**
- * Issuer URL:
- * https://app.onelogin.com/saml/metadata/796983
- * SAML 2.0 Endpoint (HTTP):
- * https://cobolbaby-dev.onelogin.com/trust/saml2/http-post/sso/796983
- * SLO Endpoint (HTTP):
- * https://cobolbaby-dev.onelogin.com/trust/saml2/http-redirect/slo/796983
- * X.509 Certificate:
- * -----BEGIN CERTIFICATE-----
-MIIEHTCCAwWgAwIBAgIUEPGXZz5ErndhS42mvxwy4zsfGAcwDQYJKoZIhvcNAQEF
-BQAwWjELMAkGA1UEBhMCVVMxEjAQBgNVBAoMCWNvYm9sYmFieTEVMBMGA1UECwwM
-T25lTG9naW4gSWRQMSAwHgYDVQQDDBdPbmVMb2dpbiBBY2NvdW50IDEyODM4NjAe
-Fw0xODA2MDUwOTI1NDhaFw0yMzA2MDUwOTI1NDhaMFoxCzAJBgNVBAYTAlVTMRIw
-EAYDVQQKDAljb2JvbGJhYnkxFTATBgNVBAsMDE9uZUxvZ2luIElkUDEgMB4GA1UE
-AwwXT25lTG9naW4gQWNjb3VudCAxMjgzODYwggEiMA0GCSqGSIb3DQEBAQUAA4IB
-DwAwggEKAoIBAQC1IeJCRFDUc49xH8NOGqsaRpBxUZRW3T5b5u4bml/VyZ6ZmKE7
-oYH1fOdnfu5jUpW7yvO0xg/V0KMw80d/g1Ghl88aQNaupxOwL6WtC0q0lwXZoHNj
-yNPAE1yRDtQ15lLlO2OKAeiBkPeZYQEORYG+nhibvAIOKfakA76CE82i8tGrRgyo
-3iL64VqH58S+bBFFv0lwscocRqVI8kYaIdx7Go1PIxdgt2K3VmgAZ8M6ugjnuhTw
-0/PRTQ6t0IDfIU2E3myolvLu+Fei+Qk/fwn9FuI2qyewQsnE+9Ge3LuwzWtO5iCi
-E+ZlI5zSvIkqp284cl4M8WhEI3GRPT73dMhZAgMBAAGjgdowgdcwDAYDVR0TAQH/
-BAIwADAdBgNVHQ4EFgQUv9iUizoygX2/Mo10mHqKM5b70uAwgZcGA1UdIwSBjzCB
-jIAUv9iUizoygX2/Mo10mHqKM5b70uChXqRcMFoxCzAJBgNVBAYTAlVTMRIwEAYD
-VQQKDAljb2JvbGJhYnkxFTATBgNVBAsMDE9uZUxvZ2luIElkUDEgMB4GA1UEAwwX
-T25lTG9naW4gQWNjb3VudCAxMjgzODaCFBDxl2c+RK53YUuNpr8cMuM7HxgHMA4G
-A1UdDwEB/wQEAwIHgDANBgkqhkiG9w0BAQUFAAOCAQEAhOTNvE8REZ6aoKoX58SF
-LSSLHcDJ0bybz+tY8ccVRRrugNU4SY0gkestnXiYCNi9KQkvKZMbw0vQx5+Y5e+1
-67lGMYFdyCSLUfZot9y6KI3V2r6RpbTpPcu5FfB64BV2JjWx4WsRh18pXyDXdB77
-xFz8YwgyZfcifw1Ecln8xCJlRZpaq/iFMJaYP2kLdJn97M0wm8M0yKe64VSQTKVi
-WLJ5uPDAkvuMnNWR4KIsYMfb5tEpSJWlzcSM1WfGBNtQVKpjyusMeXj0beG+GF9B
-o0CCK33HzIeVVTYNeIkupdNGcPn8ofoS2aOIcHMaDvGShd47wf8OiFv0tgvwtAIG
-7g==
------END CERTIFICATE-----
-
- */
 const SamlStrategy = require('passport-saml').Strategy;
 // const passport = require('../services/passport');
 
-function ssoRedirect(req, res) {
-	const opts = {
-		callbackUrl: 'http://cobol.chart2.com:1337/api/sso/saml2/demo1/acs',
-		entryPoint: 'https://cobolbaby-dev.onelogin.com/trust/saml2/http-post/sso/796983',
-		issuer: 'https://app.onelogin.com/saml/metadata/796983',
-		cert: `-----BEGIN CERTIFICATE-----
-        MIIEHTCCAwWgAwIBAgIUEPGXZz5ErndhS42mvxwy4zsfGAcwDQYJKoZIhvcNAQEF
-        BQAwWjELMAkGA1UEBhMCVVMxEjAQBgNVBAoMCWNvYm9sYmFieTEVMBMGA1UECwwM
-        T25lTG9naW4gSWRQMSAwHgYDVQQDDBdPbmVMb2dpbiBBY2NvdW50IDEyODM4NjAe
-        Fw0xODA2MDUwOTI1NDhaFw0yMzA2MDUwOTI1NDhaMFoxCzAJBgNVBAYTAlVTMRIw
-        EAYDVQQKDAljb2JvbGJhYnkxFTATBgNVBAsMDE9uZUxvZ2luIElkUDEgMB4GA1UE
-        AwwXT25lTG9naW4gQWNjb3VudCAxMjgzODYwggEiMA0GCSqGSIb3DQEBAQUAA4IB
-        DwAwggEKAoIBAQC1IeJCRFDUc49xH8NOGqsaRpBxUZRW3T5b5u4bml/VyZ6ZmKE7
-        oYH1fOdnfu5jUpW7yvO0xg/V0KMw80d/g1Ghl88aQNaupxOwL6WtC0q0lwXZoHNj
-        yNPAE1yRDtQ15lLlO2OKAeiBkPeZYQEORYG+nhibvAIOKfakA76CE82i8tGrRgyo
-        3iL64VqH58S+bBFFv0lwscocRqVI8kYaIdx7Go1PIxdgt2K3VmgAZ8M6ugjnuhTw
-        0/PRTQ6t0IDfIU2E3myolvLu+Fei+Qk/fwn9FuI2qyewQsnE+9Ge3LuwzWtO5iCi
-        E+ZlI5zSvIkqp284cl4M8WhEI3GRPT73dMhZAgMBAAGjgdowgdcwDAYDVR0TAQH/
-        BAIwADAdBgNVHQ4EFgQUv9iUizoygX2/Mo10mHqKM5b70uAwgZcGA1UdIwSBjzCB
-        jIAUv9iUizoygX2/Mo10mHqKM5b70uChXqRcMFoxCzAJBgNVBAYTAlVTMRIwEAYD
-        VQQKDAljb2JvbGJhYnkxFTATBgNVBAsMDE9uZUxvZ2luIElkUDEgMB4GA1UEAwwX
-        T25lTG9naW4gQWNjb3VudCAxMjgzODaCFBDxl2c+RK53YUuNpr8cMuM7HxgHMA4G
-        A1UdDwEB/wQEAwIHgDANBgkqhkiG9w0BAQUFAAOCAQEAhOTNvE8REZ6aoKoX58SF
-        LSSLHcDJ0bybz+tY8ccVRRrugNU4SY0gkestnXiYCNi9KQkvKZMbw0vQx5+Y5e+1
-        67lGMYFdyCSLUfZot9y6KI3V2r6RpbTpPcu5FfB64BV2JjWx4WsRh18pXyDXdB77
-        xFz8YwgyZfcifw1Ecln8xCJlRZpaq/iFMJaYP2kLdJn97M0wm8M0yKe64VSQTKVi
-        WLJ5uPDAkvuMnNWR4KIsYMfb5tEpSJWlzcSM1WfGBNtQVKpjyusMeXj0beG+GF9B
-        o0CCK33HzIeVVTYNeIkupdNGcPn8ofoS2aOIcHMaDvGShd47wf8OiFv0tgvwtAIG
-        7g==`,
-		logoutUrl: 'https://cobolbaby-dev.onelogin.com/trust/saml2/http-redirect/slo/796983',
-		// logoutCallback: 'http://cobol.chart2.com:1337/logout/callback',
-		name: 'samldemo1',
-	};
-
+function loadSamlStrategy(strategyName, opts) {
+	const samlStrategy = passport._strategy(strategyName);
+	if (samlStrategy) {
+		return samlStrategy;
+	}
 	passport.use(new SamlStrategy(opts, (profile, done) => {
 		// 查询用户是否存在，如果存在则返回
 		let user = profile;
 		return done(null, user);
 	}));
+	return passport._strategy(strategyName);
+}
 
-	passport.authenticate('samldemo1', {
-
-	})(req, res, (err, data) => {});
+async function ssoRedirect(req, res) {
+	try {
+		orgInfo = await UserService.getOrgByDomain(req);
+	} catch (error) {
+		return res.forbidden(error);
+	}
+	if (orgInfo.default) {
+		// 显示正常登录页面
+		return res.view('login');
+	}
+	if (orgInfo.status != 1) {
+		return res.forbidden(new Error('The Org is forbidden'));
+	}
+	if (!orgInfo.sso) {
+		// 显示正常登录页面
+		return res.view('login');
+	}
+	const strategyName = `samlstrategy${orgInfo.idp.id}`;
+	const opts = {
+		issuer: orgInfo.idp.issuer,
+		entryPoint: orgInfo.idp.entrypoint,
+		callbackUrl: orgInfo.domain + orgInfo.idp.acs,
+		cert: orgInfo.idp.x509cert,
+		logoutUrl: orgInfo.idp.slo,
+		name: strategyName,
+	};
+	const samlStrategy = loadSamlStrategy(strategyName, opts);
+	passport.authenticate(strategyName, {})(req, res, (err, data) => {});
 }
 
 function ssoCallback(req, res) {
-	passport.authenticate('samldemo1', {}, (err, profile, info) => {
+	const strategyName = req.param('id').trim().toLowerCase();
+	// 根据strategyName获取企业ID
+	passport.authenticate(strategyName, {}, (err, profile, info) => {
 		if (err) {
 			return res.forbidden(err);
 		}
@@ -116,6 +80,13 @@ function ssoCallback(req, res) {
          */
 
 		// 如果存在则使用
+		// TODO::emailCheck
+		// let flag = 
+		// 获取当前企业ID
+		// TODO::checkUserStatus
+		// 登录
+		// TODO::注册登录
+
 		// req.session.authenticated = true;
 		req.login(user, (err) => {
 			if (err) {
@@ -126,10 +97,36 @@ function ssoCallback(req, res) {
 	})(req, res, req.next);
 }
 
-function LogoutRedirect(req, res) {
-	// TODO::Strategy是否需要重新加载
-	var samlStrategy = passport._strategy('samldemo1');
+async function LogoutRedirect(req, res) {
+	let orgInfo = {};
+	try {
+		orgInfo = await UserService.getOrgByDomain(req);
+	} catch (error) {
+		return res.forbidden(error);
+	}
+	if (orgInfo.default) {
+		// 显示正常登录页面
+		req.logout();
+		return res.redirect('login');
+	}
+	if (orgInfo.status != 1) {
+		return res.forbidden(new Error('The Org is forbidden'));
+	}
+	if (!orgInfo.sso) {
+		req.logout();
+		return res.redirect('login');
+	}
 
+	const strategyName = `samlstrategy${orgInfo.idp.id}`;
+	const opts = {
+		issuer: orgInfo.idp.issuer,
+		entryPoint: orgInfo.idp.entrypoint,
+		callbackUrl: orgInfo.domain + orgInfo.idp.acs,
+		cert: orgInfo.idp.x509cert,
+		logoutUrl: orgInfo.idp.slo,
+		name: strategyName,
+	};
+	const samlStrategy = loadSamlStrategy(strategyName, opts);
 	samlStrategy.logout(req, function (err, requestUrl) {
 		// LOCAL logout
 		req.logout();

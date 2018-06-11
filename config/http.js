@@ -42,8 +42,8 @@ module.exports.http = {
         passportSession: require('passport').session(),
 
         // Raven's handlers has to be added as a keys to http.middleware config object
-        requestHandler: Raven.requestHandler(),
-        errorHandler: Raven.errorHandler(),
+        // requestHandler: Raven.requestHandler(),
+        // errorHandler: Raven.errorHandler(),
 
         /***************************************************************************
          *                                                                          *
@@ -73,7 +73,7 @@ module.exports.http = {
 
         order: [
             // The request handler must be the very first one
-            'requestHandler',
+            // 'requestHandler',
             'favicon',
             'customRequestLogger',
             'www',
@@ -87,7 +87,7 @@ module.exports.http = {
             // '$custom',
             'router',
             // The error handler must be after router, but before any other error middleware
-            'errorHandler',
+            // 'errorHandler',
             '404',
             '500'
         ]

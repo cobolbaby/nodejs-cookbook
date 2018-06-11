@@ -13,10 +13,12 @@ function proxy(req, res) {
 		method: req.method,
 		url: req.url, // 仅支持代理模式，因为在常规请求模式下，req.url与req.path等同不含req.host
 		headers: req.headers,
-		followRedirect: false
-	};
-	// 如何处理请求体Body
-
+        timeout: ms('60s'),
+		followRedirect: false,
+		rejectUnauthorized: false
+    };
+    // 如何处理请求体Body
+    
 	return req.pipe(request(opts)).on('error', function (err) {
 		if (err) {
 			sails.log.error(`[${req.url}]`, err);
