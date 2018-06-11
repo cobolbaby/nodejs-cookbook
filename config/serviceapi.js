@@ -2,7 +2,7 @@ module.exports.serviceapi = {
 
     userService: {
         checkPermissions   :   "/api/permissions/check",
-        getOrgByDomain     :   "/api/organization/%s",
+        getOrgByDomain     :   "/api/organization/search/domain?domain=%s",
     },
 
     taobao: {

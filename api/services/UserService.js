@@ -44,8 +44,7 @@ async function getOrgByDomain(req) {
 	-----END CERTIFICATE-----
 
 	 */
-    // const domain = req.host;
-    const domain = 'cobol';
+    const domain = req.protocol + '://' + req.host + ':' + req.port;
 	try {
         let opts = {
             url: apiBasePath + util.format(apiPath.userService.getOrgByDomain, domain),

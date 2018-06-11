@@ -27,6 +27,10 @@ async function ssoRedirect(req, res) {
 	} catch (error) {
 		return res.forbidden(error);
 	}
+	if (orgInfo.default) {
+		// 显示正常登录页面
+		return res.view('login');
+	}
 	if (orgInfo.status != 1) {
 		return res.forbidden(new Error('The Org is forbidden'));
 	}
@@ -91,6 +95,11 @@ async function LogoutRedirect(req, res) {
 		orgInfo = await UserService.getOrgByDomain(req);
 	} catch (error) {
 		return res.forbidden(error);
+	}
+	if (orgInfo.default) {
+		// 显示正常登录页面
+		req.logout();
+		return res.redirect('login');
 	}
 	if (orgInfo.status != 1) {
 		return res.forbidden(new Error('The Org is forbidden'));
