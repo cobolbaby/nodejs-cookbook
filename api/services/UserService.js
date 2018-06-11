@@ -62,7 +62,59 @@ exports.getOrgByDomain = getOrgByDomain;
  * 检查企业状态
  * @param {*} req 
  */
-async function checkUserStatus(req) {
-
+async function checkUserStatus(req, user) {
+	try {
+		let opts = {
+			url: apiBasePath + apiPath.userService.checkUserStatus,
+			method: 'GET',
+			headers: {
+				uid: user.uid,
+				oid: user.oid
+			}
+		};
+		let res = await RestClient.reqRest(opts, req);
+		return res.body.data;
+	} catch (err) {
+		sails.log.error(err);
+		throw err;
+	}
 }
 exports.checkUserStatus = checkUserStatus;
+
+
+async function checkUser(req, user) {
+	try {
+		let opts = {
+			url: apiBasePath + apiPath.userService.checkEmail,
+			method: 'POST',
+			data: {
+				email: user.email
+			}
+		};
+		let res = await RestClient.reqRest(opts, req);
+		return res.body.data;
+	} catch (err) {
+		sails.log.error(err);
+		throw err;
+	}
+}
+exports.checkEmail = checkEmail;
+
+async function login(req, user) {
+	try {
+		let opts = {
+			url: apiBasePath + apiPath.userService.login,
+			method: 'POST',
+			body: {
+				uid: user.uid,
+				oid: user.oid
+			}
+		};
+		let res = await RestClient.reqRest(opts, req);
+		return res.body.data;
+	} catch (err) {
+		sails.log.error(err);
+		throw err;
+	}
+}
+exports.login = login;

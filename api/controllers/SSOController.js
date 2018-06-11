@@ -63,8 +63,7 @@ function ssoCallback(req, res) {
 		}
 		// 校验user是否存在
 
-		let user = profile;
-		sails.log.info(user);
+		sails.log.info(profile);
 		/**
   issuer: 'https://app.onelogin.com/saml/metadata/796983',
   sessionIndex: '_b0009960-4b8d-0136-3355-06210aa143d4',
@@ -81,10 +80,31 @@ function ssoCallback(req, res) {
 
 		// 如果存在则使用
 		// TODO::emailCheck
+		let uinfo = await UserService.checkEmail(req, {
+			email: profile.nameID
+		});
+		if (!uinfo) {
+			return res.send('The User not exists');
+		}
 		// let flag = 
 		// 获取当前企业ID
+		let oid = '';
+		if (!in_array(oid, uinfo.orgs, true)) {
+			
+		}
 		// TODO::checkUserStatus
+		let userStatus = await UserService.checkUserStatus(req, {
+			uid: '',
+			oid: ''
+		});
+		if (userStatus && userStatus.status != 1) {
+			// return 
+		}
 		// 登录
+		let user = await UserService.login(req, {
+			uid: '',
+			oid: ''
+		})
 		// TODO::注册登录
 
 		// req.session.authenticated = true;
