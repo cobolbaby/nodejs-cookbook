@@ -14,7 +14,8 @@ function proxy(req, res) {
 		url: req.url,
 		headers: req.headers,
         timeout: ms('60s'),
-        followRedirect: false
+		followRedirect: false,
+		rejectUnauthorized: false
     };
     // 如何处理请求体Body
     

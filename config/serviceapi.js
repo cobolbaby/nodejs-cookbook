@@ -1,15 +1,12 @@
 module.exports.serviceapi = {
 
-    ocservice: {
-        check_permissions   :   "/api/permissions/check",
-    },
-
-    yuntuservice: {
-
+    userService: {
+        checkPermissions   :   "/api/permissions/check",
+        getOrgByDomain     :   "/api/organization/%s",
     },
 
     taobao: {
-        get_ipinfo          :   "http://ip.taobao.com/service/getIpInfo.php?ip=%s"
+        getIPInfo          :   "http://ip.taobao.com/service/getIpInfo.php?ip=%s"
     }
 
 }
