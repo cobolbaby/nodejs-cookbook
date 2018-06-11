@@ -57,3 +57,12 @@ async function getOrgByDomain(req) {
     }
 }
 exports.getOrgByDomain = getOrgByDomain;
+
+/**
+ * 检查企业状态
+ * @param {*} req 
+ */
+async function checkUserStatus(req) {
+
+}
+exports.checkUserStatus = checkUserStatus;

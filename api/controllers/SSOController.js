@@ -53,6 +53,7 @@ async function ssoRedirect(req, res) {
 
 function ssoCallback(req, res) {
 	const strategyName = req.param('id').trim().toLowerCase();
+	// 根据strategyName获取企业ID
 	passport.authenticate(strategyName, {}, (err, profile, info) => {
 		if (err) {
 			return res.forbidden(err);
@@ -79,6 +80,13 @@ function ssoCallback(req, res) {
          */
 
 		// 如果存在则使用
+		// TODO::emailCheck
+		// let flag = 
+		// 获取当前企业ID
+		// TODO::checkUserStatus
+		// 登录
+		// TODO::注册登录
+
 		// req.session.authenticated = true;
 		req.login(user, (err) => {
 			if (err) {
