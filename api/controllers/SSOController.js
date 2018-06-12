@@ -7,12 +7,10 @@
 
 const SamlStrategy = require('passport-saml').Strategy;
 // const passport = require('../services/passport');
+const _ = require('lodash');
 
 function loadSamlStrategy(strategyName, opts) {
-	const samlStrategy = passport._strategy(strategyName);
-	if (samlStrategy) {
-		return samlStrategy;
-	}
+	// 考虑到用户可能修改配置，此处需要动态加载
 	passport.use(new SamlStrategy(opts, (profile, done) => {
 		// 查询用户是否存在，如果存在则返回
 		let user = profile;
@@ -23,7 +21,7 @@ function loadSamlStrategy(strategyName, opts) {
 
 async function ssoRedirect(req, res) {
 	try {
-		orgInfo = await UserService.getOrgByDomain(req);
+		var orgInfo = await UserService.getOrgByDomain(req);
 	} catch (error) {
 		return res.forbidden(error);
 	}
@@ -38,8 +36,8 @@ async function ssoRedirect(req, res) {
 		// 显示正常登录页面
 		return res.view('login');
 	}
-	const strategyName = `samlstrategy${orgInfo.idp.id}`;
-	const opts = {
+	let strategyName = `samlstrategy${orgInfo.idp.id}`;
+	let opts = {
 		issuer: orgInfo.idp.issuer,
 		entryPoint: orgInfo.idp.entrypoint,
 		callbackUrl: orgInfo.domain + orgInfo.idp.acs,
@@ -47,14 +45,14 @@ async function ssoRedirect(req, res) {
 		logoutUrl: orgInfo.idp.slo,
 		name: strategyName,
 	};
-	const samlStrategy = loadSamlStrategy(strategyName, opts);
+	let samlStrategy = loadSamlStrategy(strategyName, opts);
 	passport.authenticate(strategyName, {})(req, res, (err, data) => {});
 }
 
 function ssoCallback(req, res) {
-	const strategyName = req.param('id').trim().toLowerCase();
+	let strategyName = req.param('id').trim().toLowerCase();
 	// 根据strategyName获取企业ID
-	passport.authenticate(strategyName, {}, (err, profile, info) => {
+	passport.authenticate(strategyName, {}, async (err, profile, info) => {
 		if (err) {
 			return res.forbidden(err);
 		}
@@ -79,35 +77,60 @@ function ssoCallback(req, res) {
          */
 
 		// 如果存在则使用
-		// TODO::emailCheck
-		let uinfo = await UserService.checkEmail(req, {
-			email: profile.nameID
-		});
-		if (!uinfo) {
-			return res.send('The User not exists');
+		try {
+			var uinfo = await UserService.checkUser(req, {email: profile.nameID});
+		} catch (err) {
+			// TODO::强行注册
+			return res.forbidden(err);
 		}
-		// let flag = 
+		
 		// 获取当前企业ID
-		let oid = '';
-		if (!in_array(oid, uinfo.orgs, true)) {
-			
+		let currentOid = '12';
+		// 判断登录用户是否在该企业中
+		let notmatch = true;
+		for (let i = 0, max = uinfo.organizations.length; i < max; i++) {
+			let org = uinfo.organizations[i];
+			if (org.id === Number(currentOid) && org.org_status === 1 && org.user_status === 1) {
+				notmatch = false;
+				break;
+			}
 		}
-		// TODO::checkUserStatus
-		let userStatus = await UserService.checkUserStatus(req, {
-			uid: '',
-			oid: ''
-		});
-		if (userStatus && userStatus.status != 1) {
-			// return 
+		if (notmatch) {
+			// TODO::强行邀请
+			return res.forbidden(new Error('The user do not exists'));
 		}
 		// 登录
-		let user = await UserService.login(req, {
-			uid: '',
-			oid: ''
-		})
-		// TODO::注册登录
+		try {
+			var user = await UserService.loginV2(req, {
+				uid: uinfo.uid,
+				oid: currentOid
+			});
+			/*
+			"uid": "1000101",
+			"last_login_time": 1528785383,
+			"login_num": 4,
+			"username": "cobolbaby@qq.com",
+			"plan_id": 2,
+			"oid": "12",
+			"nickname": "cobolbaby",
+			"avatar": "/Uploads/Avatar/201806/5b1f4d8e3f87c.jpg",
+			"mobile": "",
+			"scene": "sso"
+			*/
+		} catch (err) {
+			return res.serverError(err);
+		}
 
-		// req.session.authenticated = true;
+		// 要想退出，`req.user`中需要包含`nameID`，`nameIDFormat`以及`sessionIndex`
+		// 所以还得附加属性
+		user = _.extend(user, {
+			nameID: profile.nameID,
+			nameIDFormat: profile.nameIDFormat,
+			sessionIndex: profile.sessionIndex,
+			nameQualifier: profile.nameQualifier,
+			spNameQualifier: profile.spNameQualifier
+		});
+
 		req.login(user, (err) => {
 			if (err) {
 				return res.forbidden(err);
@@ -137,8 +160,8 @@ async function LogoutRedirect(req, res) {
 		return res.redirect('login');
 	}
 
-	const strategyName = `samlstrategy${orgInfo.idp.id}`;
-	const opts = {
+	let strategyName = `samlstrategy${orgInfo.idp.id}`;
+	let opts = {
 		issuer: orgInfo.idp.issuer,
 		entryPoint: orgInfo.idp.entrypoint,
 		callbackUrl: orgInfo.domain + orgInfo.idp.acs,
@@ -146,7 +169,7 @@ async function LogoutRedirect(req, res) {
 		logoutUrl: orgInfo.idp.slo,
 		name: strategyName,
 	};
-	const samlStrategy = loadSamlStrategy(strategyName, opts);
+	let samlStrategy = loadSamlStrategy(strategyName, opts);
 	samlStrategy.logout(req, function (err, requestUrl) {
 		// LOCAL logout
 		req.logout();

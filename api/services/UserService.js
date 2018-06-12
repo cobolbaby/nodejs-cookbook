@@ -59,36 +59,17 @@ async function getOrgByDomain(req) {
 exports.getOrgByDomain = getOrgByDomain;
 
 /**
- * 检查企业状态
+ * 
  * @param {*} req 
+ * @param {*} user 
  */
-async function checkUserStatus(req, user) {
-	try {
-		let opts = {
-			url: apiBasePath + apiPath.userService.checkUserStatus,
-			method: 'GET',
-			headers: {
-				uid: user.uid,
-				oid: user.oid
-			}
-		};
-		let res = await RestClient.reqRest(opts, req);
-		return res.body.data;
-	} catch (err) {
-		sails.log.error(err);
-		throw err;
-	}
-}
-exports.checkUserStatus = checkUserStatus;
-
-
 async function checkUser(req, user) {
 	try {
 		let opts = {
 			url: apiBasePath + apiPath.userService.checkEmail,
 			method: 'POST',
-			data: {
-				email: user.email
+			body: {
+				account: user.email
 			}
 		};
 		let res = await RestClient.reqRest(opts, req);
@@ -98,16 +79,22 @@ async function checkUser(req, user) {
 		throw err;
 	}
 }
-exports.checkEmail = checkEmail;
+exports.checkUser = checkUser;
 
-async function login(req, user) {
+/**
+ * 
+ * @param {*} req 
+ * @param {*} user 
+ */
+async function loginV2(req, user) {
 	try {
 		let opts = {
-			url: apiBasePath + apiPath.userService.login,
+			url: apiBasePath + apiPath.userService.loginV2,
 			method: 'POST',
 			body: {
 				uid: user.uid,
-				oid: user.oid
+				oid: user.oid,
+				scene: 'sso'
 			}
 		};
 		let res = await RestClient.reqRest(opts, req);
@@ -117,4 +104,4 @@ async function login(req, user) {
 		throw err;
 	}
 }
-exports.login = login;
+exports.loginV2 = loginV2;
