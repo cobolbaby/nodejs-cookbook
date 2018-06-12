@@ -1,4 +1,5 @@
 const geoip = require('geoip-lite');
+const requestIp = require('request-ip');
 
 module.exports = {
   getAddress: function(req, res) {
@@ -21,7 +22,8 @@ module.exports = {
    */
   getIp: function(req, res) {
     // return is important
-    return res.send(req.ip);
+    let ip = requestIp.getClientIp(req);
+    return res.send(ip);
   }
 
     

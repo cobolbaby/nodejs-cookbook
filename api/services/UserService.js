@@ -50,7 +50,7 @@ async function getOrgByDomain(req) {
             url: apiBasePath + util.format(apiPath.userService.getOrgByDomain, domain),
         };
         let res = await RestClient.reqRest(opts, req);
-        return res.body.data;
+		return res.body.data;
     } catch (err) {
         sails.log.error(err);
         throw err;
@@ -73,7 +73,11 @@ async function checkUser(req, user) {
 			}
 		};
 		let res = await RestClient.reqRest(opts, req);
-		return res.body.data;
+		if (res.body.status === 0) {
+			return res.body.data;
+		}
+		return null;
+		// throw new Error(res.body.info);
 	} catch (err) {
 		sails.log.error(err);
 		throw err;
@@ -105,3 +109,27 @@ async function loginV2(req, user) {
 	}
 }
 exports.loginV2 = loginV2;
+
+async function addMember2Org(req, user) {
+	try {
+		let opts = {
+			url: apiBasePath + util.format(apiPath.userService.addMember2Org, user.oid),
+			method: 'POST',
+			header: {
+				'AUTH-SIGN': 'xxxxxxxxxxxxxxxxxxxxxxxx'
+			},
+			body: {
+				members: [user.email]
+			}
+		};
+		let res = await RestClient.reqRest(opts, req);
+		if (res.body.status === 0) {
+			return res.body.data[0];
+		}
+		throw new Error(res.body.info);
+	} catch (err) {
+		sails.log.error(err);
+		throw err;
+	}
+}
+exports.addMember2Org = addMember2Org;

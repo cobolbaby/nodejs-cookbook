@@ -36,7 +36,7 @@ async function ssoRedirect(req, res) {
 		// 显示正常登录页面
 		return res.view('login');
 	}
-	let strategyName = `samlstrategy${orgInfo.idp.id}`;
+	let strategyName = `samlstrategy-${orgInfo.id}`;
 	let opts = {
 		issuer: orgInfo.idp.issuer,
 		entryPoint: orgInfo.idp.entrypoint,
@@ -51,6 +51,8 @@ async function ssoRedirect(req, res) {
 
 function ssoCallback(req, res) {
 	let strategyName = req.param('id').trim().toLowerCase();
+	// 获取当前企业ID
+	let currentOid = Number(strategyName.split('-')[1]);
 	// 根据strategyName获取企业ID
 	passport.authenticate(strategyName, {}, async (err, profile, info) => {
 		if (err) {
@@ -59,8 +61,6 @@ function ssoCallback(req, res) {
 		if (!profile) {
 			return res.forbidden(info);
 		}
-		// 校验user是否存在
-
 		sails.log.info(profile);
 		/**
   issuer: 'https://app.onelogin.com/saml/metadata/796983',
@@ -80,25 +80,29 @@ function ssoCallback(req, res) {
 		try {
 			var uinfo = await UserService.checkUser(req, {email: profile.nameID});
 		} catch (err) {
-			// TODO::强行注册
 			return res.forbidden(err);
 		}
 		
-		// 获取当前企业ID
-		let currentOid = '12';
 		// 判断登录用户是否在该企业中
 		let notmatch = true;
-		for (let i = 0, max = uinfo.organizations.length; i < max; i++) {
-			let org = uinfo.organizations[i];
-			if (org.id === Number(currentOid) && org.org_status === 1 && org.user_status === 1) {
-				notmatch = false;
-				break;
+		if (uinfo && uinfo.organizations) {
+			for (let i = 0, max = uinfo.organizations.length; i < max; i++) {
+				let org = uinfo.organizations[i];
+				if (org.id === currentOid && org.org_status === 1 && org.user_status === 1) {
+					notmatch = false;
+					break;
+				}
 			}
 		}
 		if (notmatch) {
-			// TODO::强行邀请
-			return res.forbidden(new Error('The user do not exists'));
+			// return res.forbidden(new Error('The user do not exists'));
+			// 强行邀请
+			uinfo = await UserService.addMember2Org(req, {
+				email: profile.nameID,
+				oid: currentOid
+			});
 		}
+
 		// 登录
 		try {
 			var user = await UserService.loginV2(req, {
@@ -160,7 +164,7 @@ async function LogoutRedirect(req, res) {
 		return res.redirect('login');
 	}
 
-	let strategyName = `samlstrategy${orgInfo.idp.id}`;
+	let strategyName = `samlstrategy-${orgInfo.id}`;
 	let opts = {
 		issuer: orgInfo.idp.issuer,
 		entryPoint: orgInfo.idp.entrypoint,

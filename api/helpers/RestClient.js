@@ -22,7 +22,7 @@ function reqRest(req, originReq) {
 	let opts = {
 		url: req.url,
 		method: req.method || 'GET',
-		headers: _.extend(headers, req.headers || {}),
+		headers: _.extend(headers, req.header || {}),
 		json: true // Automatically stringifies the body to JSON
 	};
 	if (req.body) {
@@ -59,7 +59,7 @@ function reqRestAuth(req, originReq) {
 	let opts = {
 		url: req.url,
 		method: req.method || 'GET',
-		headers: _.extend(headers, req.headers || {}),
+		headers: _.extend(headers, req.header || {}),
 		json: true // Automatically stringifies the body to JSON
 	};
 	if (req.body) {

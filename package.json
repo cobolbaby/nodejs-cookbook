@@ -32,6 +32,7 @@
     "rc": "1.0.1",
     "redis": "^2.8.0",
     "request": "^2.87.0",
+    "request-ip": "^2.0.2",
     "request-promise": "^4.2.2",
     "sails": "~0.12.13",
     "sails-disk": "~0.10.9",
