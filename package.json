@@ -48,5 +48,8 @@
     "url": "git://github.com/zhangxl/weixinaudit.git"
   },
   "author": "zhangxl",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "typescript": "^2.9.1"
+  }
 }
