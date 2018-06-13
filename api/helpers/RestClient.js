@@ -26,7 +26,7 @@ function reqRest(req, originReq) {
 		json: true // Automatically stringifies the body to JSON
 	};
 	if (req.body) {
-		opts.body = req.body;
+		opts['body'] = req.body;
 	}
 
 	return new Promise(function (resolve, reject) {
@@ -63,7 +63,7 @@ function reqRestAuth(req, originReq) {
 		json: true // Automatically stringifies the body to JSON
 	};
 	if (req.body) {
-		opts.body = req.body;n
+		opts['body'] = req.body;
 	}
     return new Promise(function (resolve, reject) {
 	    request(opts, function (error, response, body) {

@@ -49,9 +49,9 @@ module.exports.routes = {
   // "get /auth/:provider/callback": "AuthController.callback",
 
   // SSO
-  'get /login': 'SSOController.ssoRedirect',
-  '/api/sso/saml2/:id/acs': 'SSOController.ssoCallback', // POST/GET
-  'get /logout': 'SSOController.LogoutRedirect',
+  'get /sso/login': 'SSOController.ssoRedirect',
+  'post /sso/saml2/:id/acs': 'SSOController.ssoCallback', // POST/GET
+  'get /sso/logout': 'SSOController.LogoutRedirect',
   // 'get /logout/callback': 'SSOController.LogoutCallback', // 跳过该环节也可实现退出
 
   // Proxy HTTP
