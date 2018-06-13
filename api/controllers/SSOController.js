@@ -25,7 +25,7 @@ async function ssoRedirect(req, res) {
 	} catch (error) {
 		return res.forbidden(error);
 	}
-	if (orgInfo.default) {
+	if (!orgInfo || orgInfo.default) {
 		// 显示正常登录页面
 		return res.view('login');
 	}
