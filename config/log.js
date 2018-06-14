@@ -22,20 +22,12 @@ const logger = new winston.Logger({
 		verbose: 5,
 		silly: 6
 	},
-	level: 'verbose',
+	level: 'silly',
 	transports: [
 		new winston.transports.Console({
 			// level: 'verbose',
 			colorize: true,
-			timestamp: true,
-			stderrLevels: [
-				'error',
-				'warn',
-				'info',
-				'debug',
-				'verbose',
-				'silly'
-			]
+			timestamp: true
 		})
 	]
 });

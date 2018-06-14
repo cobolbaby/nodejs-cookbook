@@ -6,9 +6,14 @@ const puppeteer = require('puppeteer');
     });
 
     const page = await browser.newPage();
+    // 设置浏览器视窗
+    page.setViewport({
+        width: 1376,
+        height: 768,
+    });
     await page.goto('https://app.shujuguan.cn');
     await page.screenshot({
-        path: 'shujuguan.png',
+        path: 'saved.png',
         fullPage: true,
     });
 
