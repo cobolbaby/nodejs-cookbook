@@ -52,6 +52,7 @@ module.exports.routes = {
   'get /sso/login': 'SSOController.ssoRedirect',
   'post /sso/saml2/:id/acs': 'SSOController.ssoCallback', // POST/GET
   'get /sso/logout': 'SSOController.LogoutRedirect',
+  'get /sso/saml2/sp/metadata': 'SSOController.generateSPMetadata',
   // 'get /logout/callback': 'SSOController.LogoutCallback', // 跳过该环节也可实现退出
 
   // Proxy HTTP

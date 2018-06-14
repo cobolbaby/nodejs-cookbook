@@ -50,7 +50,10 @@ async function getOrgByDomain(req) {
             url: apiBasePath + util.format(apiPath.userService.getOrgByDomain, domain),
         };
         let res = await RestClient.reqRest(opts, req);
-		return res.body.data;
+		if (res.body.code === 0) {
+			return res.body.data;
+		}
+		throw new Error(res.body.msg);
     } catch (err) {
         sails.log.error(err);
         throw err;
@@ -73,11 +76,11 @@ async function checkUser(req, user) {
 			}
 		};
 		let res = await RestClient.reqRest(opts, req);
-		if (res.body.status === 0) {
+		if (res.body.code === 0) {
 			return res.body.data;
 		}
 		return null;
-		// throw new Error(res.body.info);
+		// throw new Error(res.body.msg);
 	} catch (err) {
 		sails.log.error(err);
 		throw err;
@@ -123,10 +126,10 @@ async function addMember2Org(req, user) {
 			}
 		};
 		let res = await RestClient.reqRest(opts, req);
-		if (res.body.status === 0) {
+		if (res.body.code === 0) {
 			return res.body.data[0];
 		}
-		throw new Error(res.body.info);
+		throw new Error(res.body.msg);
 	} catch (err) {
 		sails.log.error(err);
 		throw err;

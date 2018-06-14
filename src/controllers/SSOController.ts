@@ -186,6 +186,37 @@ export async function LogoutRedirect(req, res) {
 	});
 }
 
+export async function generateSPMetadata(req, res) {
+	let orgInfo = {};
+	try {
+		orgInfo = await UserService.getOrgByDomain(req);
+	} catch (error) {
+		return res.forbidden(error);
+	}
+	if (orgInfo.default) {
+		return res.forbidden(new Error('invalid domain'));
+	}
+	if (orgInfo.status != 1) {
+		return res.forbidden(new Error('invalid domain'));
+	}
+	if (!orgInfo.sso) {
+		return res.forbidden(new Error('invalid domain'));
+	}
+
+	let strategyName = `samlstrategy-${orgInfo.id}`;
+	let opts = {
+		issuer: orgInfo.idp.issuer,
+		entryPoint: orgInfo.idp.entrypoint,
+		callbackUrl: orgInfo.domain + orgInfo.idp.acs,
+		cert: orgInfo.idp.x509cert,
+		logoutUrl: orgInfo.idp.slo,
+		name: strategyName,
+	};
+	let samlStrategy = loadSamlStrategy(strategyName, opts);
+	let metadata = samlStrategy.generateServiceProviderMetadata();
+	return res.type('xml').send(metadata);
+}
+
 function LogoutCallback(req, res) {
 	// LOCAL logout
 	req.logout();
