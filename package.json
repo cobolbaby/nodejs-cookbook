@@ -6,6 +6,7 @@
   "keywords": [],
   "dependencies": {
     "assert": "^1.4.1",
+    "dateformat": "^3.0.3",
     "geoip-lite": "^1.2.1",
     "grunt": "1.0.1",
     "grunt-contrib-clean": "1.0.0",
@@ -36,7 +37,8 @@
     "request-promise": "^4.2.2",
     "sails": "~0.12.13",
     "sails-disk": "~0.10.9",
-    "vue": "^2.4.2"
+    "vue": "^2.4.2",
+    "winston": "^2.4.3"
   },
   "scripts": {
     "debug": "node debug app.js",

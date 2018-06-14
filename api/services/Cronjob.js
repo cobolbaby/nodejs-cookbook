@@ -13,7 +13,7 @@ var schedule = require('node-schedule');
 function launch () {
     // 设置定时器
     // 配置定时任务
-    console.log('do the schedule job');
+    sails.log.info('Launch the schedule job');
 };
 exports.launchprogress = launch;
 

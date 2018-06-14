@@ -34,7 +34,7 @@ module.exports.http = {
          ****************************************************************************/
 
         customRequestLogger: function(req, res, next) {
-            console.log("Requested :: ", req.method, req.url);
+            sails.log.verbose("Requested :: ", req.method, req.url);
             return next();
         },
 

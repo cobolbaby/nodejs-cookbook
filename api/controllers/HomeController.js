@@ -183,7 +183,11 @@ module.exports = {
 
     index: function (req, res) {
         // 验证SessionID
-        // sails.log.debug('sessionID is:' + req.sessionID);
+        sails.log.verbose('sessionID is:' + req.sessionID);
+        sails.log.debug('sessionID is:' + req.sessionID);
+        sails.log.info('sessionID is:' + req.sessionID);
+        sails.log.warn('sessionID is:' + req.sessionID);
+        sails.log.error('sessionID is:' + req.sessionID);
         res.view('homepage');
     },
 
