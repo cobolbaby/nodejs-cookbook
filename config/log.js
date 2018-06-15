@@ -12,25 +12,28 @@
 
 const winston = require('winston');
 
-const logger = new winston.Logger({
-	levels: {
-		silent: 0,
-		error: 1,
-		warn: 2,
-		info: 3,
-		debug: 4,
-		verbose: 5,
-		silly: 6
-	},
-	level: 'silly',
-	transports: [
-		new winston.transports.Console({
-			// level: 'verbose',
-			colorize: true,
-			timestamp: true
-		})
-	]
-});
+// let option = require('');
+let option = {
+	levels: {},
+    level: 'silly',
+    transports: []
+};
+option.levels = {
+	silent: 0,
+	error: 1,
+	warn: 2,
+	info: 3,
+	debug: 4,
+	verbose: 5,
+	silly: 6
+};
+option.transports = _.extend(option.transports, [
+	new winston.transports.Console({
+		colorize: true,
+		timestamp: true
+	})
+]);
+const logger = new winston.Logger(option);
 
 module.exports.log = {
 	// Pass in our custom logger, and pass all log levels through.
