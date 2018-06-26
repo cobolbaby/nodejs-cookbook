@@ -21,52 +21,56 @@
  */
 
 module.exports.routes = {
-  /***************************************************************************
-   *                                                                          *
-   * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
-   * etc. depending on your default view engine) your home page.              *
-   *                                                                          *
-   * (Alternatively, remove this and add an `index.html` file in your         *
-   * `assets` directory)                                                      *
-   *                                                                          *
-   ***************************************************************************/
+	/***************************************************************************
+	 *                                                                          *
+	 * Make the view located at `views/homepage.ejs` (or `views/homepage.jade`, *
+	 * etc. depending on your default view engine) your home page.              *
+	 *                                                                          *
+	 * (Alternatively, remove this and add an `index.html` file in your         *
+	 * `assets` directory)                                                      *
+	 *                                                                          *
+	 ***************************************************************************/
 
-  "/index.html": {
-    view: "homepage"
-  },
+	"/index.html": {
+		view: "homepage"
+	},
 
-  "get /": "HomeController.index",
-  "get /debug": "HomeController.debug",
-  "get /api/location/ip": "GeoIPController.getIp",
-  "get /api/location/address": "GeoIPController.getAddress",
-  "get /api/user/acl": "AuthController.testAcl",
-  'get /api/qrcode/:id': 'QrcodeController.createQrcode',
+	"get /": "HomeController.index",
+	"get /debug": "HomeController.debug",
+	"get /api/location/ip": "GeoIPController.getIp",
+	"get /api/location/address": "GeoIPController.getAddress",
+	"get /api/user/acl": "AuthController.testAcl",
+	'get /api/qrcode/:id': 'QrcodeController.createQrcode',
 
-  /**
-   * 3rd passport
-   */
-  // "get /auth/:provider": "AuthController.provider",
-  // "get /auth/:provider/callback": "AuthController.callback",
+	// 3rd passport
+	// "get /auth/:provider": "AuthController.provider",
+	// "get /auth/:provider/callback": "AuthController.callback",
 
-  // SSO
-  'get /sso/login': 'SSOController.ssoRedirect',
-  'post /sso/saml2/:id/acs': 'SSOController.ssoCallback', // POST/GET
-  'get /sso/logout': 'SSOController.LogoutRedirect',
-  'get /sso/saml2/sp/metadata': 'SSOController.generateSPMetadata',
-  // 'get /logout/callback': 'SSOController.LogoutCallback', // 跳过该环节也可实现退出
+	// SSO
+	'get /sso/login': 'SSOController.ssoRedirect',
+	'post /sso/saml2/:id/acs': 'SSOController.ssoCallback', // POST/GET
+	'get /sso/logout': 'SSOController.LogoutRedirect',
+	'get /sso/saml2/sp/metadata': 'SSOController.generateSPMetadata',
+	// 'get /logout/callback': 'SSOController.LogoutCallback', // 跳过该环节也可实现退出
 
-  // Proxy HTTP
-  '/proxy/test': 'ProxyController.test',
-  '*': 'ProxyController.proxy',
+	// Oauth2 Server
+	'get /openapi/oauth2/authorize': 'OauthController.authorize',
+	'post /openapi/oauth2/token': 'OauthController.createToken',
+	'/openapi/*': 'OauthController.task',
 
 
-  /***************************************************************************
-   *                                                                          *
-   * Custom routes here...                                                    *
-   *                                                                          *
-   * If a request to a URL doesn't match any of the custom routes above, it   *
-   * is matched against Sails route blueprints. See `config/blueprints.js`    *
-   * for configuration options and examples.                                  *
-   *                                                                          *
-   ***************************************************************************/
+	// Proxy HTTP
+	'/proxy/test': 'ProxyController.test',
+	'*': 'ProxyController.proxy',
+
+
+	/***************************************************************************
+	 *                                                                          *
+	 * Custom routes here...                                                    *
+	 *                                                                          *
+	 * If a request to a URL doesn't match any of the custom routes above, it   *
+	 * is matched against Sails route blueprints. See `config/blueprints.js`    *
+	 * for configuration options and examples.                                  *
+	 *                                                                          *
+	 ***************************************************************************/
 };

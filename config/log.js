@@ -11,6 +11,7 @@
  */
 
 const winston = require('winston');
+const _ = require('lodash');
 
 // let option = require('');
 let option = {
